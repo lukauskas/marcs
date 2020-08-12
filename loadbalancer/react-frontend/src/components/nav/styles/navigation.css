@@ -1,0 +1,9 @@
+/*#main-navbar-nav .nav-link {*/
+/*    color: var(--light);*/
+/*}*/
+#main-navbar-nav .nav-link:hover {
+}
+
+#main-navbar-nav .nav-link.active {
+    color: var(--info);
+}

@@ -1,0 +1,32 @@
+# ------- Pre-compiling ---------------------------------
+FROM snapanalysis as snap
+COPY ./react-frontend/precompile /extra
+RUN python /extra/gene_select.py
+RUN python /extra/predictors.py
+RUN python /extra/collect_downloads.py
+
+# -- main build ----
+
+FROM nginxinc/nginx-unprivileged:alpine
+
+COPY http.conf /etc/nginx/conf.d/http.conf
+COPY location_api.conf /etc/nginx/conf.d/location_api.conf
+COPY nginx.conf.dev.template /etc/nginx/conf.d/nginx.conf.template
+
+
+# Need root to make proxy_cache directory
+USER root
+RUN mkdir -p /cache/proxy \
+    && chown -R 101:0 /cache/proxy \
+    && chmod -R g+w /cache/proxy
+USER 101
+
+COPY --from=snap /downloads/. /usr/share/nginx/html/downloads
+COPY ./static/ /usr/share/nginx/html/static
+
+ENV NGINX_HOST localhost
+
+LABEL org.label-schema.vcs-ref="$COMMIT" \
+      org.label-schema.build-date="$BUILD_DATE"
+
+CMD envsubst '$NGINX_HOST' < /etc/nginx/conf.d/nginx.conf.template > /tmp/nginx.conf && exec nginx -c /tmp/nginx.conf -g 'daemon off;'

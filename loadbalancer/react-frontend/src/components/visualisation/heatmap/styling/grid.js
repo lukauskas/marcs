@@ -1,0 +1,1 @@
+export const GRID_BORDER_COLOR = '#bdbdbd';

@@ -1,0 +1,87 @@
+@keyframes fade-inner {
+  20% {
+    opacity: 0.9;
+  }
+
+  90% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fade-outer {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    opacity: 0.7;
+    transform: scale(0.75);
+  }
+
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+.beaconInner {
+    animation: 1.2s ease-in-out 0s infinite normal none running fade-inner;
+    background-color: rgb(75, 160, 181);
+    border-radius: 50%;
+    display: block;
+    height: 50%;
+    left: 50%;
+    opacity: 0.7;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+
+.beaconOuter {
+    animation: 1.2s ease-in-out 0s infinite normal none running fade-outer;
+    background-color: rgba(75, 160, 181, 0.2);
+    border: 2px solid rgb(75, 160, 181);
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: block;
+    height: 100%;
+    left: 0px;
+    opacity: 0.9;
+    position: absolute;
+    top: 0px;
+    transform-origin: center center;
+    width: 100%;
+}
+
+.beaconButton {
+    border: 0px;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 8px;
+    appearance: none;
+    display: inline-block;
+    background-color: transparent;
+
+    position: absolute;
+    top: 2rem;
+    left: -2rem;
+
+    height: 36px;
+    width: 36px;
+    /*margin-top: -18px;*/
+
+
+    z-index: 100
+}
+
+
+@media (max-width: 767.98px) {
+    .beaconButton {
+        top: -2rem;
+        left: 50%;
+        margin-left: -18px;
+    }
+}

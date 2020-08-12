@@ -1,0 +1,9 @@
+.expanded-row {
+    padding: 1em;
+    display: block;
+    width: 100%;
+}
+
+.expanded-row h3 {
+    font-size: 1.1rem;
+}

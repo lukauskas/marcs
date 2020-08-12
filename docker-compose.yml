@@ -1,0 +1,22 @@
+version: '3'
+services:
+  loadbalancer:
+    depends_on:
+      - api
+    restart: always
+    ports:
+      - "80:8080"
+      - "443:8443"
+    volumes:
+      - ./ssl/marcs.crt:/etc/nginx/ssl/marcs.crt
+      - ./ssl/marcs.key:/etc/nginx/ssl/marcs.key
+      - ./htpasswd/.htpasswd:/etc/nginx/.htpasswd
+      - ./cache/proxy:/cache/proxy
+  api:
+    restart: always
+    expose:
+      - 8080
+    environment:
+      - OPENAPI_PREFIX=/api
+      - WEB_CONCURRENCY=2
+      - PORT=8080

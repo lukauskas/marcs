@@ -1,0 +1,66 @@
+# --- Pre-build the react frontend ----------------------
+# Currently this is copy-paste from the hot version ... Not sure how to import a dockerfile.
+
+# ------- Pre-compiling ---------------------------------
+FROM snapanalysis as snap
+COPY ./react-frontend/precompile /extra
+RUN python /extra/gene_select.py
+RUN python /extra/predictors.py
+RUN python /extra/collect_downloads.py
+# -------- Webpack compiling  ----------------------------
+
+FROM node:latest as webpack
+WORKDIR /webpackbuild
+
+COPY react-frontend/package-lock.json react-frontend/package.json ./
+RUN npm install --no-progress --ignore-optional
+
+COPY react-frontend/webpack.config.js ./
+COPY react-frontend/data ./data
+COPY --from=snap /precompiled/* ./data/
+COPY react-frontend/config ./config
+COPY react-frontend/src ./src
+
+ARG BUILD_DATE
+ARG COMMIT
+ARG BUILD_TYPE='prod'
+
+LABEL org.label-schema.vcs-ref="$COMMIT" \
+      org.label-schema.build-date="$BUILD_DATE"
+
+RUN echo "export const WEB_INTERFACE_BUILD_DATE = '$BUILD_DATE';\nexport const WEB_INTERFACE_BUILD_COMMIT = '$COMMIT';\nexport const WEB_INTERFACE_BUILD_TYPE = '$BUILD_TYPE';" > ./data/build.js
+
+RUN npm run build
+
+# -- NGINX set up --------------------------------------
+FROM nginxinc/nginx-unprivileged:alpine
+
+COPY http.conf /etc/nginx/conf.d/http.conf
+COPY location_api.conf /etc/nginx/conf.d/location_api.conf
+COPY nginx.conf.prod.template /etc/nginx/conf.d/nginx.conf.template
+
+# Need root to make proxy_cache directory
+USER root
+RUN mkdir -p /cache/proxy \
+    && chown -R 101:0 /cache/proxy \
+    && chmod -R g+w /cache/proxy
+USER 101
+
+ENV NGINX_HOST localhost
+
+CMD envsubst '$NGINX_HOST' < /etc/nginx/conf.d/nginx.conf.template > /tmp/nginx.conf && exec nginx -c /tmp/nginx.conf -g 'daemon off;'
+
+COPY --from=snap /downloads/. /usr/share/nginx/html/downloads
+COPY --from=webpack /webpackbuild/build/. /usr/share/nginx/html/react
+COPY ./static/ /usr/share/nginx/html/static
+
+ENV NGINX_HOST localhost
+
+ARG BUILD_DATE
+ARG COMMIT
+ARG BUILD_TYPE='prod'
+
+LABEL org.label-schema.vcs-ref="$COMMIT" \
+      org.label-schema.build-date="$BUILD_DATE"
+
+CMD envsubst '$NGINX_HOST' < /etc/nginx/conf.d/nginx.conf.template > /tmp/nginx.conf && exec nginx -c /tmp/nginx.conf -g 'daemon off;'

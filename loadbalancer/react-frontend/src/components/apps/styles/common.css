@@ -1,0 +1,29 @@
+.fitcontent-container {
+    max-width: 100%;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+@media (min-width: 576px) {
+    .fitcontent-container {
+        min-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .fitcontent-container {
+        min-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .fitcontent-container {
+        min-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .fitcontent-container {
+        min-width: 1140px;
+    }
+}

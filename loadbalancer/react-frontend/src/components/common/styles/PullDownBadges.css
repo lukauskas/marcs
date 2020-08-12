@@ -1,0 +1,32 @@
+
+/*const categories = ['H2A.Z', 'ac', 'me1', 'me2', 'me3', 'm5C'];*/
+/*const colors = ['#5e4fa2', '#3288bd', '#a8ddb5', '#9ccb86', '#66c2a5', '#4eb3d3'];*/
+
+.badge-h2az {
+    background-color: #5B488B;
+    color: white;
+}
+
+.badge-ac {
+    background-color: #336892;
+    color: white;
+}
+
+.badge-me1 {
+    background-color: #9FDDA9;
+    color: #2c2c2c;
+}
+
+.badge-me2 {
+    background-color: #80AD56;
+    color: white;
+}
+.badge-me3 {
+    background-color: #3C8358;
+    color: white;
+}
+
+.badge-m5c {
+    background-color: #58A4A4;
+    color: white;
+}

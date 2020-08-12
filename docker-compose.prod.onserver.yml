@@ -1,0 +1,8 @@
+version: '3'
+services:
+  loadbalancer:
+    image: snap-web-loadbalancer-prod
+    environment:
+      - NGINX_HOST=marcs.helmholtz-muenchen.de
+  api:
+    image: snap-web-api-prod

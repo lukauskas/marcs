@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+#marcs-header {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    padding: 0;
+    /*Letter M visually has a bit of gap on the left, which makes alignment odd*/
+    /*Correct for that here*/
+    margin-left: -0.2rem;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+    line-height: 1.0;
+}
+
+#marcs-subheader {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 2rem;
+    padding: 0;
+    text-align: left;
+    margin: -0.15em 0 0.5em;
+}
+
+#marcs-jumbotron {
+    padding: 0 0;
+    background-color: inherit;
+
+}
+
+#marcs-jumbotron a {
+    color: inherit;
+}
+
+#landing-page-card-deck .card-title {
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

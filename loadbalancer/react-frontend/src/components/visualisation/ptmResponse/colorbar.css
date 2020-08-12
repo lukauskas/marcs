@@ -1,0 +1,38 @@
+/* Borrowed this from chroma.js CSS */
+.gradient {
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+    display: inline-block;
+    top: 4px;
+    padding-bottom: 15px;
+}
+.grad-step {
+    display: inline-block;
+    height: 20px;
+    width: 1%;
+}
+
+.gradient .domain-min {
+    position: absolute;
+    left: 3px;
+    /*font-size: 11px;*/
+    bottom: 0;
+    text-align: left;
+}
+
+.gradient .domain-mid {
+  position: absolute;
+  right: 25%;
+  left: 25%;
+  text-align: center;
+  /*font-size: 11px;*/
+  bottom: 0;
+}
+.gradient .domain-max {
+    position: absolute;
+    right: 3px;
+    /*font-size: 11px;*/
+    bottom: 0;
+    text-align: right;
+}

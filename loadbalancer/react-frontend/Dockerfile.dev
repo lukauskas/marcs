@@ -1,0 +1,31 @@
+## This is the dockerfile for "hot" loading of webpack
+
+FROM snapanalysis as snap
+COPY ./precompile /extra
+RUN python /extra/gene_select.py
+RUN python /extra/predictors.py
+RUN python /extra/collect_downloads.py
+
+FROM node:latest
+
+EXPOSE 8080
+WORKDIR /bindmount
+
+COPY package-lock.json package.json ./
+RUN npm install --no-progress --ignore-optional
+
+COPY webpack.config.js ./
+COPY data ./data
+COPY --from=snap /precompiled/* ./data/
+COPY config ./config
+
+ARG BUILD_DATE
+ARG COMMIT
+ARG BUILD_TYPE='dev'
+
+LABEL org.label-schema.vcs-ref="$COMMIT" \
+      org.label-schema.build-date="$BUILD_DATE"
+
+RUN echo "export const WEB_INTERFACE_BUILD_DATE = '$BUILD_DATE';\nexport const WEB_INTERFACE_BUILD_COMMIT = '$COMMIT';\nexport const WEB_INTERFACE_BUILD_TYPE = '$BUILD_TYPE';" > ./data/build.js
+
+CMD npm run start

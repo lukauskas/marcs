@@ -1,0 +1,19 @@
+version: '3'
+services:
+  loadbalancer:
+    image: snap-web-loadbalancer-prod
+    build:
+      context: ./loadbalancer
+      dockerfile: Dockerfile.prod
+      args:
+        - BUILD_DATE
+        - COMMIT
+    environment:
+      - NGINX_HOST=marcs.local
+  api:
+    image: snap-web-api-prod
+    build:
+      context: ./api/
+      args:
+        - BUILD_DATE
+        - COMMIT
