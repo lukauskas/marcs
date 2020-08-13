@@ -103,7 +103,7 @@ export default class Hello extends Component {
                     <Jumbotron id="marcs-jumbotron" className="mb-5">
                         <h1 id="marcs-header">MARCS</h1>
                         <h2 id="marcs-subheader">Modification Atlas of Regulation by Chromatin States</h2>
-                        <Citation />
+                        <Citation/>
                     </Jumbotron>
                     <CardDeck id="landing-page-card-deck">
                         <Card id="marcs-protein-pages">

@@ -1,13 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Citation() {
+export default function Citation(props) {
+    const { intro } = props;
+
     return (
-        <blockquote className="blockquote mb-0">
-            <p>
-                Placeholder for citation: Lukauskas, S., Nguyen, N., Tvardovskiy, A., [...], and Bartke, T. (2020)
-                Protein interactions with chromatin described in the Modification Atlas of Regulation by Chromatin States (MARCS).
-                JOURNAL <a href="http://dx.doi.org">http://dx.doi.org</a>.
-            </p>
-        </blockquote>
+        <>
+            <blockquote className="blockquote mb-0">
+                <p>
+                    {intro}
+                    Lukauskas, S.,
+                    Nguyen, N. V.,
+                    Tvardovskiy, A.,
+                    Faull, P.,
+                    Flynn, H.,
+                    Lindeboom, R. G. H.,
+                    Barth, T. K.,
+                    Hauck, S. M.,
+                    Jensen, O. N.,
+                    Vermeulen, M.,
+                    Snijders, A. P.,
+                    Schneider, R.,
+                    DiMaggio, P. D.,
+                    and Bartke, T.
+                    {' '}
+                    <em>Decoding Chromatin States by Proteomic Profiling of Modification-Dependent Nucleosome Readers.</em>
+                    {' '}
+                    Unpublished (2020).
+                </p>
+            </blockquote>
+        </>
     );
 }
+
+Citation.propTypes = {
+    intro: PropTypes.string,
+}
+
+Citation.defaultProps = {
+    intro: '',
+};

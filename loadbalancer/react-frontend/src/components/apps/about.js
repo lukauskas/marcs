@@ -32,28 +32,6 @@ export default class AboutPage extends Component {
                     <h2>Citing MARCS</h2>
                     <Citation />
 
-                    <h2>Acknowledgements</h2>
-                    <p>
-                        MARCS has been primarily developed at:
-                        <ul>
-                            <li><a href="https://www.helmholtz-muenchen.de/ife/index.html">Institute of Functional Epigenetics, Helmholtz-Zentrum München</a></li>
-                            <li><a href="https://lms.mrc.ac.uk/">London institute of Medical Sciences</a></li>
-                            <li><a href="https://www.imperial.ac.uk/">Imperial College London</a></li>
-                        </ul>
-                        In collaboration with:
-                        <ul>
-                            <li>List collaborator affiliations</li>
-                        </ul>
-                    </p>
-                    <p>
-                        MARCS is being hosted at <a href="https://www.helmholtz-muenchen.de/">Helmholtz-Zentrum München</a>
-                    </p>
-                    <p>
-                        MARCS has been funded by:
-                        <ul>
-                            <li>Funding info</li>
-                        </ul>
-                    </p>
                     <h2>Current release</h2>
                     <VersionInfo/>
                     <h2>License & Privacy Policy</h2>
