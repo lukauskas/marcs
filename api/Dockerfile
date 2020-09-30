@@ -66,6 +66,7 @@ RUN mkdir /build && python -c "import pickle; f = open('/build/info.pickle', 'wb
 
 # We don't need root to run this...
 ENV PORT=8080
+
 EXPOSE 8080
 USER 101
 

@@ -19,6 +19,8 @@ services:
       args:
         - BUILD_DATE
         - COMMIT
+    environment:
+      - LOG_LEVEL=info
   webpack-hot:
     image: snap-web-webpack-hot
     build:
