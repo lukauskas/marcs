@@ -10,6 +10,8 @@ RUN python /extra/collect_downloads.py
 FROM nginxinc/nginx-unprivileged:alpine
 
 COPY http.conf /etc/nginx/conf.d/http.conf
+COPY masked_logging.conf /etc/nginx/conf.d/masked_logging.conf
+COPY mask_ip_address.js /etc/nginx/conf.d/mask_ip_address.js
 COPY location_api.conf /etc/nginx/conf.d/location_api.conf
 COPY nginx.conf.dev.template /etc/nginx/conf.d/nginx.conf.template
 
