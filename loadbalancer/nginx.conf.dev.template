@@ -5,7 +5,6 @@ pid        /tmp/nginx.pid;
 
 load_module "/usr/lib/nginx/modules/ngx_http_js_module.so";
 load_module "/usr/lib/nginx/modules/ngx_stream_js_module.so";
-load_module "/usr/lib/nginx/modules/ngx_http_geoip_module.so";
 
 events {
     worker_connections  1024;
