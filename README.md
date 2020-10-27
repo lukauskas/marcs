@@ -3,9 +3,9 @@
 MARCS interactive web interface is split into two (optionally three) parts:
 
 1. `fastapi` powered API, available at `/api`, which handles the data requests
-2. `nginx` loadbalancer node which redirects requests to API, caches them, 
+2. `nginx` loadbalancer node which redirects requests to API, caches them,
     and serves a webpack packaged REACT frontend.
-3.  (optional) In the development build of the interface, 
+3.  (optional) In the development build of the interface,
     the third docker container hot-loads webpack frontend for javascript development.
 
 
@@ -34,9 +34,16 @@ to build the `snapanalysis` image.
 
 MARCS is configured to be `https` only.
 Please obtain an appropriate SSL certificate if you want to host it.
-Alternatively, especially for the development create a self-signed certificate 
+Alternatively, especially for the development create a self-signed certificate
 and place it in `ssl` directory.
 See the accompanying [README](ssl/README.md)
+
+#### MATOMO tracking settings (optional)
+
+The app integrates tracking by [matomo](https://matomo.org/) out of the box.
+The tracking is disabled by default, in order to enable it,
+copy [`matomo.sourceme.template`](matomo.sourceme.template) to `matomo.sourceme`,
+and update the variables specified in this template accordingly.
 
 ### Development build
 
@@ -58,7 +65,7 @@ To start the development server use the helper script:
 ./build_run_dev.sh
 ```
 
-Proceed to 
+Proceed to
 
 ```
 https://marcs.local
@@ -71,7 +78,7 @@ if you are using a self-signed one.
 #### Building API (development mode)
 
 API can be built separately from the rest of interface by the `buildnrun.sh` script in `api` directory.
-This is useful for API development purposes. 
+This is useful for API development purposes.
 Having said that, development build will also build the API.
 
 ### Production build
@@ -91,7 +98,7 @@ The production images can be prebuilt from `docker-comkpose.yml` and `docker-com
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --force-rm --parallel
-``` 
+```
 
 Convenience script `prebuild_prod.sh` does the job:
 
@@ -113,7 +120,7 @@ Convenience script:
 
 They will still run locally `https://marcs.local`
 
-The images can then be transferred to the server (this is done by `deploy.py` script) in which 
+The images can then be transferred to the server (this is done by `deploy.py` script) in which
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.prod.onserver.yml up -d
