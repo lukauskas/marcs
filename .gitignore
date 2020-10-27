@@ -103,3 +103,6 @@ snap-pulldowns-web.tgz
 .idea
 .DS_Store
 cache/proxy
+
+# MARCS specific
+matomo.sourceme

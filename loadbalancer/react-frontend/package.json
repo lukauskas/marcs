@@ -4,6 +4,7 @@
   "description": "Web interface to SNAP paper",
   "main": "index.js",
   "dependencies": {
+    "@datapunt/matomo-tracker-react": "^0.3.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
@@ -65,6 +66,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^2.1.1",
+    "dotenv": "^8.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-babel": "^5.3.0",

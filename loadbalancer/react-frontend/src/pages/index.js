@@ -24,6 +24,10 @@ import ReaderLandingPage from 'components/apps/readerlandingpage';
 import DownloadsPage from 'components/apps/downloads';
 import AboutPage from 'components/apps/about';
 
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
+import { MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE } from '../../data/matomo';
+
+
 // eslint-disable-next-line react/prop-types
 function ReaderInfoSwitch({ match }) {
     // eslint-disable-next-line react/prop-types
@@ -75,5 +79,21 @@ Root.propTypes = {
     store: PropTypes.object.isRequired,
 };
 
-ReactDOM.render(<Root store={store} />,
-    document.getElementById('root'));
+const instance = createInstance({
+    urlBase: MATOMO_URL_BASE,
+    siteId: MATOMO_SITE_ID,
+    disabled: MATOMO_DISABLED,
+    configurations: {
+        disableCookies: true,
+    },
+});
+
+console.log("MATOMO_DISABLED")
+console.log(MATOMO_DISABLED);
+
+ReactDOM.render(
+    <MatomoProvider value={instance}>
+        <Root store={store} />
+    </MatomoProvider>,
+    document.getElementById('root'),
+);

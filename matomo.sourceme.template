@@ -1,0 +1,7 @@
+# If you want MATOMO tracking
+# Update these variables and copy them to `matomo.sourceme`
+# file before build
+
+MATOMO_DISABLED=true
+MATOMO_URL_BASE="http://localhost"
+MATOMO_SITE_ID=1

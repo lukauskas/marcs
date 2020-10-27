@@ -19,6 +19,14 @@ COPY data ./data
 COPY --from=snap /precompiled/* ./data/
 COPY config ./config
 
+# Matomo tracking:
+ARG MATOMO_URL_BASE="http://localhost"
+ARG MATOMO_SITE_ID=1
+ARG MATOMO_DISABLED="true"
+ARG MATOMO_DEBUG="true"
+
+RUN echo "export const MATOMO_URL_BASE = '$MATOMO_URL_BASE';\nexport const MATOMO_SITE_ID = $MATOMO_SITE_ID;\nexport const MATOMO_DISABLED = '$MATOMO_DISABLED';\nexport const MATOMO_DEBUG = '$MATOMO_DEBUG';" > ./data/matomo.js
+
 ARG BUILD_DATE
 ARG COMMIT
 ARG BUILD_TYPE='dev'
