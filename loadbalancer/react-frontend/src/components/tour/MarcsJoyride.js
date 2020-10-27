@@ -2,8 +2,9 @@ import React from 'react';
 import Joyride from 'react-joyride';
 import PropTypes from 'prop-types';
 import { MarcsBeacon } from './MarcsBeacon';
+import {withMatomoTrackEvent} from '../matomo/MatomoTrackEvent';
 
-export default class MarcsJoyride extends React.Component {
+class _MarcsJoyride extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,12 +29,30 @@ export default class MarcsJoyride extends React.Component {
         });
     };
 
+    closeTour = () => {
+        const { trackEvent } = this.props;
+
+        trackEvent({
+            category: 'tour',
+            action: 'stop',
+        });
+
+        this.disableTour();
+    };
+
     startTour = () => {
+        const { trackEvent } = this.props;
+
+        trackEvent({
+            category: 'tour',
+            action: 'start',
+        });
+
         this.setState({
             showTour: true,
             showBeacon: false,
         });
-    }
+    };
 
     render() {
         const { steps, tourEnabled, disableScrolling } = this.props;
@@ -76,7 +95,7 @@ export default class MarcsJoyride extends React.Component {
                     }}
                     callback={(data) => {
                         if (data.action === 'close') {
-                            this.disableTour();
+                            this.closeTour();
                         }
                     }}
                     styles={{
@@ -91,12 +110,15 @@ export default class MarcsJoyride extends React.Component {
     }
 }
 
-MarcsJoyride.propTypes = {
+_MarcsJoyride.propTypes = {
     steps: PropTypes.arrayOf(PropTypes.object).isRequired,
     tourEnabled: PropTypes.bool.isRequired,
     disableScrolling: PropTypes.bool,
+    trackEvent: PropTypes.func.isRequired,
 };
 
-MarcsJoyride.defaultProps = {
+_MarcsJoyride.defaultProps = {
     disableScrolling: false,
-}
+};
+
+export default withMatomoTrackEvent(_MarcsJoyride);

@@ -9,6 +9,7 @@ import { setShowImputed } from 'components/stores/actions/scatterplotControl';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {withMatomoTrackEvent} from "../../matomo/MatomoTrackEvent";
 
 function variantSelectFunc(selected, total) {
     if (selected === 0) return 'danger';
@@ -18,9 +19,18 @@ function variantSelectFunc(selected, total) {
 class _ScatterplotToolbox extends Component {
 
     toggleShowImputed = () => {
-        const { dispatch, showImputed } = this.props;
+        const { dispatch, showImputed, trackEvent } = this.props;
 
-        dispatch(setShowImputed(!showImputed));
+        const newValue = !showImputed;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'toggle',
+            name: 'ScatterplotToolbox.showImputed',
+            value: `${newValue}`,
+        });
+
+        dispatch(setShowImputed(!newValue));
     };
 
     render() {
@@ -72,4 +82,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-export default connect(mapStateToProps)(_ScatterplotToolbox);
+const ScatterplotToolboxWithTracking = withMatomoTrackEvent(_ScatterplotToolbox);
+export default connect(mapStateToProps)(ScatterplotToolboxWithTracking);

@@ -13,6 +13,7 @@ import _ from 'lodash';
 import Form from 'react-bootstrap/Form';
 import CheckboxWithIndeterminate from 'react-multiselect-checkboxes/lib/CheckboxWithIndeterminate';
 import { css } from 'emotion';
+import {withMatomoTrackEvent} from "../matomo/MatomoTrackEvent";
 
 function getOptions() {
     return Object.entries(PULL_DOWNS).map(([key, pd]) => {
@@ -168,7 +169,18 @@ export class PullDownSelect extends PureComponent {
         }
 
         const keys = _.uniq(validatedValue.map(x => x.key));
-        const { dispatch } = this.props;
+
+        const { dispatch, trackEvent } = this.props;
+
+        const nSelected = keys.length;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'change',
+            name: 'PullDownSelect',
+            value: `n=${nSelected}`,
+        });
+
         dispatch(changeSelection(keys));
     };
 
@@ -228,4 +240,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-export default connect(mapStateToProps)(PullDownSelect);
+const PullDownSelectWithTracking = withMatomoTrackEvent(PullDownSelect);
+export default connect(mapStateToProps)(PullDownSelectWithTracking);

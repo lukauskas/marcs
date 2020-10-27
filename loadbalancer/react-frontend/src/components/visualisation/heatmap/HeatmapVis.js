@@ -5,12 +5,9 @@ import {
 import ReactEcharts from 'echarts-for-react';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
-import Alert from 'react-bootstrap/Alert';
 import { mainHeatmapSeries, mainHeatmapVisualMap, heatmapYAxis } from 'components/visualisation/heatmap/styling/heatmap';
 import PropType from 'prop-types';
 import HelpQuestionMark from 'components/common/HelpQuestionMark';
-import Toast from 'react-bootstrap/Toast';
-import Badge from 'react-bootstrap/Badge';
 import { annotationSeries, annotationVisualMap, annotationXAxis } from './styling/annotation';
 
 import {

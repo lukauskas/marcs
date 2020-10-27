@@ -13,6 +13,7 @@ import { GENE_SELECTOR_OPTIONS } from 'data/gene_options';
 import { changeSelection, setShowSimilar } from 'components/stores/actions/geneSelect';
 import './css/geneSelect.css';
 import Badge from 'react-bootstrap/Badge';
+import {withMatomoTrackEvent} from "../matomo/MatomoTrackEvent";
 
 const OPTION_HEIGHT = 50;
 
@@ -186,13 +187,33 @@ class GeneSelect extends PureComponent {
         }
 
         const keys = _.uniq(validatedValue.map(x => x.key));
-        const { dispatch } = this.props;
+
+        const { dispatch, trackEvent } = this.props;
+
+        const nSelected = keys.length;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'change',
+            name: 'GeneSelect',
+            value: `n=${nSelected}`,
+        });
+
         dispatch(changeSelection(keys));
     };
 
     toggleShowSimilar = () => {
-        const { dispatch, showSimilar } = this.props;
-        dispatch(setShowSimilar(!showSimilar));
+        const { dispatch, showSimilar, trackEvent } = this.props;
+        const newValue = !showSimilar;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'toggle',
+            name: 'GeneSelect.showSimilar',
+            value: `${newValue}`,
+        });
+
+        dispatch(setShowSimilar(newValue));
     };
 
     render() {
@@ -244,4 +265,5 @@ GeneSelect.defaultProps = {
 };
 
 
-export default connect(mapStateToProps)(GeneSelect);
+const GeneSelectWithTracking = withMatomoTrackEvent(GeneSelect);
+export default connect(mapStateToProps)(GeneSelectWithTracking);

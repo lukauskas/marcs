@@ -1,14 +1,13 @@
-import React, {Component, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import HeatmapToolbox from 'components/controls/toolboxes/heatmaptoolbox';
 import Container from 'react-bootstrap/Container';
 import HeatmapComponent from 'components/visualisation/heatmap/HeatmapComponent';
 import './styles/common.css';
-import Joyride from 'react-joyride';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MarcsJoyride from "components/tour/MarcsJoyride";
 import SmallInteractionNetwork from '../visualisation/network/SmallInteractionNetwork';
 import ProteinPTMResponses from '../visualisation/ptmResponse/ProteinPTMResponses';
-import MarcsJoyride from "components/tour/MarcsJoyride";
 import MatomoPageView from "../matomo/MatomoPageView";
 
 class ProteinDetails extends PureComponent {

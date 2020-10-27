@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { PTMColorBar } from '../visualisation/ptmResponse/colors';
 import { changeNetworkColor } from 'components/stores/actions/networks';
+import {withMatomoTrackEvent} from "../matomo/MatomoTrackEvent";
 
 
 function mapStateToProps(state) {
@@ -22,7 +23,15 @@ function mapStateToProps(state) {
 class NetworkColorSelect extends PureComponent {
     handleChange = (event) => {
         const { value } = event.target;
-        const { dispatch } = this.props;
+        const { dispatch, trackEvent } = this.props;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'change',
+            name: 'NetworkColorSelect',
+            value: `${value}`,
+        });
+
         dispatch(changeNetworkColor(value));
     };
 
@@ -85,4 +94,5 @@ NetworkColorSelect.defaultProps = {
     selection: 'communities',
 };
 
-export default connect(mapStateToProps)(NetworkColorSelect);
+const NetworkColorSelectWithTracking = withMatomoTrackEvent(NetworkColorSelect);
+export default connect(mapStateToProps)(NetworkColorSelectWithTracking);

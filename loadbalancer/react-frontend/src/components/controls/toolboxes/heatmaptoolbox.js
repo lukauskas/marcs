@@ -13,16 +13,34 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
 import _ from 'lodash';
+import {withMatomoTrackEvent} from "../../matomo/MatomoTrackEvent";
 
 class _HeatmapToolbox extends Component {
     toggleClusterPDs = () => {
-        const { dispatch, clusterPDs } = this.props;
+        const { dispatch, clusterPDs, trackEvent } = this.props;
 
-        dispatch(setClusterPds(!clusterPDs));
+        const newValue = !clusterPDs;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'toggle',
+            name: 'HeatmapToolbox.clusterPDs',
+            value: `${newValue}`,
+        });
+
+        dispatch(setClusterPds(newValue));
     };
 
     changeAnnotationType = (newValue) => {
-        const { dispatch } = this.props;
+        const { dispatch, trackEvent } = this.props;
+
+        trackEvent({
+            category: 'interaction-with-vis-control',
+            action: 'toggle',
+            name: 'HeatmapToolbox.annotationType',
+            value: `${newValue}`,
+        });
+
         dispatch(setAnnotationType(newValue));
     };
 
@@ -138,4 +156,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-export default connect(mapStateToProps)(_HeatmapToolbox);
+const _HeatmapToolboxWithTracking = withMatomoTrackEvent(_HeatmapToolbox);
+export default connect(mapStateToProps)(_HeatmapToolboxWithTracking);
