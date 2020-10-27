@@ -4,6 +4,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import PropTypes from 'prop-types';
 import VolcanoAndTable from "../visualisation/readers/VolcanoAndTable";
 import MarcsJoyride from "../tour/MarcsJoyride";
+import MatomoPageView from "../matomo/MatomoPageView";
 
 export default class ReaderInfo extends PureComponent {
     render() {
@@ -46,6 +47,7 @@ export default class ReaderInfo extends PureComponent {
         const title = `${ptm} effect estimates and reader proteins`;
         return (
             <>
+                <MatomoPageView />
                 <Jumbotron fluid>
                     <Container className="position-relative">
                         <h1>

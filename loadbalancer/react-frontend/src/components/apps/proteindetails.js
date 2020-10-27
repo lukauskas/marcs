@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import SmallInteractionNetwork from '../visualisation/network/SmallInteractionNetwork';
 import ProteinPTMResponses from '../visualisation/ptmResponse/ProteinPTMResponses';
 import MarcsJoyride from "components/tour/MarcsJoyride";
+import MatomoPageView from "../matomo/MatomoPageView";
 
 class ProteinDetails extends PureComponent {
     constructor(props) {
@@ -76,26 +77,29 @@ class ProteinDetails extends PureComponent {
         ];
 
         return (
-            <div className="app">
-                <HeatmapToolbox>
-                    <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled} />
-                </HeatmapToolbox>
-                <Container className="fitcontent-container">
-                    <div className="row mb-3">
-                        <div className="col-12 col-md-4 p-1" id="component-networks">
-                            <SmallInteractionNetwork />
+            <>
+                <MatomoPageView />
+                <div className="app">
+                    <HeatmapToolbox>
+                        <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled} />
+                    </HeatmapToolbox>
+                    <Container className="fitcontent-container">
+                        <div className="row mb-3">
+                            <div className="col-12 col-md-4 p-1" id="component-networks">
+                                <SmallInteractionNetwork />
+                            </div>
+                            <div className="col-12 col-md-8 p-1" id="component-protein-responses">
+                                <ProteinPTMResponses />
+                            </div>
                         </div>
-                        <div className="col-12 col-md-8 p-1" id="component-protein-responses">
-                            <ProteinPTMResponses />
+                        <div className="row" id="component-heatmap">
+                            <div className="col-12 p-1">
+                                <HeatmapComponent />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row" id="component-heatmap">
-                        <div className="col-12 p-1">
-                            <HeatmapComponent />
-                        </div>
-                    </div>
-                </Container>
-            </div>
+                    </Container>
+                </div>
+            </>
         );
     }
 }

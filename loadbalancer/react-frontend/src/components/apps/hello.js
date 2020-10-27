@@ -14,6 +14,7 @@ import dataImg from './images/complexlist.png';
 import readersImg from './images/readers.png';
 
 import './styles/hello.css';
+import MatomoPageView from "../matomo/MatomoPageView";
 
 const START_TOUR_AFTER = 10000; // Milliseconds
 
@@ -68,6 +69,7 @@ export default class Hello extends Component {
 
         return (
             <>
+                <MatomoPageView title="Index" />
                 <Joyride
                     steps={tourSteps}
                     run={runTour}

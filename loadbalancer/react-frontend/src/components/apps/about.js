@@ -6,12 +6,14 @@ import Citation from "../info/Citation";
 import Button from "react-bootstrap/Button";
 
 import './styles/about.css'
+import MatomoPageView from "../matomo/MatomoPageView";
 
 export default class AboutPage extends Component {
     render() {
 
         return (
             <>
+                <MatomoPageView title="About" />
                 <Jumbotron fluid>
                     <Container>
                         <h1>

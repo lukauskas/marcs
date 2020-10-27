@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Joyride from 'react-joyride';
 import { ProteinDetails } from './proteindetails';
 import MarcsJoyride from "../tour/MarcsJoyride";
+import MatomoPageView from "../matomo/MatomoPageView";
 
 class PullDowns extends PureComponent {
     componentDidMount() {
@@ -52,6 +53,7 @@ class PullDowns extends PureComponent {
 
         return (
             <>
+                <MatomoPageView />
                 <ScatterPlotToolBox>
                     <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled}/>
                 </ScatterPlotToolBox>

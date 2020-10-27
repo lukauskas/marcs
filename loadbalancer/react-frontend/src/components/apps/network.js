@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Joyride from 'react-joyride';
 import BigNetwork from '../visualisation/bignetwork/BigNetwork';
 import MarcsJoyride from '../tour/MarcsJoyride';
+import MatomoPageView from "../matomo/MatomoPageView";
 
 class Network extends PureComponent {
 
@@ -52,6 +53,7 @@ class Network extends PureComponent {
 
         return (
             <>
+                <MatomoPageView />
                 <NetworkToolbox>
                     <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled} disableScrolling />
                 </NetworkToolbox>

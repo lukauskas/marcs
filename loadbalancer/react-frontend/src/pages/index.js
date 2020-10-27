@@ -25,7 +25,9 @@ import DownloadsPage from 'components/apps/downloads';
 import AboutPage from 'components/apps/about';
 
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
-import { MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE } from '../../data/matomo';
+import {
+    MATOMO_DEBUG, MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE,
+} from 'data/matomo';
 
 
 // eslint-disable-next-line react/prop-types
@@ -48,52 +50,73 @@ function ReaderInfoSwitch({ match }) {
     return (<NotFound />);
 }
 
+function makeMatomo() {
+    const options = {
+        urlBase: MATOMO_URL_BASE,
+        siteId: MATOMO_SITE_ID,
+        configurations: {
+            disableCookies: true,
+        },
+    };
+
+    // eslint-disable-next-line eqeqeq
+    const isMatomoDisabled = String(MATOMO_DISABLED).toLowerCase() == "true";
+
+    if (isMatomoDisabled) {
+        // MatomoContext will just ignore this and not say anything
+        console.log('MATOMO tracking is disabled');
+        options.disabled = true;
+    }
+
+    const instance = createInstance(options);
+    if (MATOMO_DEBUG && !isMatomoDisabled) {
+        console.group('Matomo tracking is on');
+        console.log(`MATOMO_URL_BASE=${MATOMO_URL_BASE}`);
+        console.log(`MATOMO_SITE_ID=${MATOMO_SITE_ID}`);
+        console.log(instance);
+        console.groupEnd();
+    }
+    return instance;
+}
+
+const matomoInstance = makeMatomo();
+
 // eslint-disable-next-line no-shadow
-const Root = ({ store }) => (
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <div>
-                <Menu />
-                <Switch>
-                    <Route exact path="/" component={Hello} />
-                    <Route path="/about" component={AboutPage} />
-                    <Route path="/proteins" component={ProteinDetails} />
-                    <Route path="/network" component={Network} />
-                    <Route path="/pds" component={PullDowns} />
-                    <Route path="/data/complexes" component={ComplexList} />
-                    <Route path="/data/proteins" component={ProteinList} />
-                    <Route path="/downloads" component={DownloadsPage} />
-                    <Route path="/data/" component={DataIndex} />
-                    <Route exact path="/readers/" component={ReaderLandingPage} />
-                    <Route path="/readers/:ptm" component={ReaderInfoSwitch} />
-                    <Route component={NotFound} />
-                </Switch>
-                <Footer />
-            </div>
-        </ConnectedRouter>
-    </Provider>
-);
+const Root = ({ store }) => {
+    return (
+        <Provider store={store}>
+            <MatomoProvider value={matomoInstance}>
+                <ConnectedRouter history={history}>
+                    <div>
+                        <Menu />
+                        <Switch>
+                            <Route exact path="/" component={Hello} />
+                            <Route path="/about" component={AboutPage} />
+                            <Route path="/proteins" component={ProteinDetails} />
+                            <Route path="/network" component={Network} />
+                            <Route path="/pds" component={PullDowns} />
+                            <Route path="/data/complexes" component={ComplexList} />
+                            <Route path="/data/proteins" component={ProteinList} />
+                            <Route path="/downloads" component={DownloadsPage} />
+                            <Route path="/data/" component={DataIndex} />
+                            <Route exact path="/readers/" component={ReaderLandingPage} />
+                            <Route path="/readers/:ptm" component={ReaderInfoSwitch} />
+                            <Route component={NotFound} />
+                        </Switch>
+                        <Footer />
+                    </div>
+                </ConnectedRouter>
+            </MatomoProvider>
+        </Provider>
+    );
+};
 
 Root.propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     store: PropTypes.object.isRequired,
 };
 
-const instance = createInstance({
-    urlBase: MATOMO_URL_BASE,
-    siteId: MATOMO_SITE_ID,
-    disabled: MATOMO_DISABLED,
-    configurations: {
-        disableCookies: true,
-    },
-});
-
-console.log("MATOMO_DISABLED")
-console.log(MATOMO_DISABLED);
-
 ReactDOM.render(
-    <MatomoProvider value={instance}>
-        <Root store={store} />
-    </MatomoProvider>,
+    <Root store={store} />,
     document.getElementById('root'),
 );

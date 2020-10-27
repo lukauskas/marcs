@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import ComplexesTable from 'components/tables/ComplexesTable';
 import Jumbotron from 'react-bootstrap/Jumbotron';
+import MatomoPageView from "../matomo/MatomoPageView";
 
 export default class ComplexList extends Component {
 
@@ -12,6 +13,7 @@ export default class ComplexList extends Component {
     render() {
         return (
             <>
+                <MatomoPageView/>
                 <Jumbotron fluid>
                     <Container>
                         <h3>List of protein complexes in the database</h3>

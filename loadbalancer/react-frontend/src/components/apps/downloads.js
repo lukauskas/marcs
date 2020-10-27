@@ -5,6 +5,7 @@ import VersionInfo from "components/info/VersionInfo";
 import { SNAP_DATA_VERSION } from "data/dataVersion";
 
 import './styles/downloads.css'
+import MatomoPageView from "../matomo/MatomoPageView";
 
 function fileHref(basename, extension) {
     const {version_suffix: versionSuffix} = SNAP_DATA_VERSION;
@@ -17,6 +18,7 @@ export default class DownloadsPage extends Component {
 
         return (
             <>
+                <MatomoPageView />
                 <Jumbotron fluid>
                     <Container>
                         <h1>

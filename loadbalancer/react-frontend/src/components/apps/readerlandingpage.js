@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import {PTM_PREDICTOR_ORDER, PTM_PREDICTOR_ORDER_WEBSAFE} from "../../../data/ptms";
 
 import ptmGraphicalAbstract from "./images/reader-abstract.png"
+import MatomoPageView from "../matomo/MatomoPageView";
 
 const H3_PTMS = [
     'H3K4me1',
@@ -65,6 +66,7 @@ export default class ReaderLandingPage extends Component {
 
         return (
             <>
+                <MatomoPageView />
                 <Jumbotron fluid>
                     <Container>
                         <h1>
