@@ -5,29 +5,16 @@ import shutil
 import os
 import yaml
 
-from sh import docker, ssh, gzip, scp, docker_compose, git, date
+from sh import docker, ssh, gzip, scp, docker_compose, Command
 import tarfile
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-def get_commit():
-    return git('rev-parse', '--short', 'HEAD').strip()
-
-def get_date():
-    return date('-u', "+'%Y-%m-%dT%H:%M:%SZ'").strip('\n\'')
+build_images = Command("./prebuild_prod.sh")
 
 def create_images(server_key, server_uri):
-    date = get_date()
-    commit = get_commit()
-
-    print(f'Building prod images (date:{date}, commit:{commit})')
-
-    docker_compose('-f', 'docker-compose.yml', '-f', 'docker-compose.prod.yml',
-                   'build', '--force-rm', '--parallel',
-                   '--build-arg', f'BUILD_DATE={date}',
-                   '--build-arg', f'COMMIT={commit}',
-                   '--build-arg', 'BUILD_TYPE=prod',
-                   )
+    print('Building prod images')
+    build_images()
 
     with open(os.path.join(here, 'docker-compose.prod.yml')) as f:
         compose = yaml.load(f)
