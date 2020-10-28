@@ -53,9 +53,9 @@ class PullDowns extends PureComponent {
 
         return (
             <>
-                <MatomoPageView />
+                <MatomoPageView title="pds" />
                 <ScatterPlotToolBox>
-                    <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled}/>
+                    <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled} />
                 </ScatterPlotToolBox>
                 <Container>
                     <PullDownDeck />

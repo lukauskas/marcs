@@ -78,7 +78,7 @@ class ProteinDetails extends PureComponent {
 
         return (
             <>
-                <MatomoPageView />
+                <MatomoPageView title="proteins"/>
                 <MatomoProteinSearchTracker />
                 <div className="app">
                     <HeatmapToolbox>
