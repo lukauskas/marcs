@@ -13,7 +13,7 @@ import { GENE_SELECTOR_OPTIONS } from 'data/gene_options';
 import { changeSelection, setShowSimilar } from 'components/stores/actions/geneSelect';
 import './css/geneSelect.css';
 import Badge from 'react-bootstrap/Badge';
-import {withMatomoTrackEvent} from "../matomo/MatomoTrackEvent";
+import {withMatomo} from "../matomo/WithMatomo";
 
 const OPTION_HEIGHT = 50;
 
@@ -265,5 +265,5 @@ GeneSelect.defaultProps = {
 };
 
 
-const GeneSelectWithTracking = withMatomoTrackEvent(GeneSelect);
+const GeneSelectWithTracking = withMatomo(GeneSelect);
 export default connect(mapStateToProps)(GeneSelectWithTracking);

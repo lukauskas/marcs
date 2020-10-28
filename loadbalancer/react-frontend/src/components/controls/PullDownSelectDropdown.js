@@ -13,7 +13,7 @@ import _ from 'lodash';
 import Form from 'react-bootstrap/Form';
 import CheckboxWithIndeterminate from 'react-multiselect-checkboxes/lib/CheckboxWithIndeterminate';
 import { css } from 'emotion';
-import {withMatomoTrackEvent} from "../matomo/MatomoTrackEvent";
+import {withMatomo} from "../matomo/WithMatomo";
 
 function getOptions() {
     return Object.entries(PULL_DOWNS).map(([key, pd]) => {
@@ -240,5 +240,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-const PullDownSelectWithTracking = withMatomoTrackEvent(PullDownSelect);
+const PullDownSelectWithTracking = withMatomo(PullDownSelect);
 export default connect(mapStateToProps)(PullDownSelectWithTracking);

@@ -2,7 +2,7 @@ import React from 'react';
 import Joyride from 'react-joyride';
 import PropTypes from 'prop-types';
 import { MarcsBeacon } from './MarcsBeacon';
-import {withMatomoTrackEvent} from '../matomo/MatomoTrackEvent';
+import { withMatomo } from '../matomo/WithMatomo';
 
 class _MarcsJoyride extends React.Component {
     constructor(props) {
@@ -121,4 +121,4 @@ _MarcsJoyride.defaultProps = {
     disableScrolling: false,
 };
 
-export default withMatomoTrackEvent(_MarcsJoyride);
+export default withMatomo(_MarcsJoyride);

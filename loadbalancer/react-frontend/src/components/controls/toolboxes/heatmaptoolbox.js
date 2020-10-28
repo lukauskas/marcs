@@ -13,7 +13,7 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
 import _ from 'lodash';
-import {withMatomoTrackEvent} from "../../matomo/MatomoTrackEvent";
+import {withMatomo} from "../../matomo/WithMatomo";
 
 class _HeatmapToolbox extends Component {
     toggleClusterPDs = () => {
@@ -156,5 +156,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-const _HeatmapToolboxWithTracking = withMatomoTrackEvent(_HeatmapToolbox);
+const _HeatmapToolboxWithTracking = withMatomo(_HeatmapToolbox);
 export default connect(mapStateToProps)(_HeatmapToolboxWithTracking);

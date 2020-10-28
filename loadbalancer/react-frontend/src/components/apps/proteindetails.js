@@ -9,6 +9,7 @@ import MarcsJoyride from "components/tour/MarcsJoyride";
 import SmallInteractionNetwork from '../visualisation/network/SmallInteractionNetwork';
 import ProteinPTMResponses from '../visualisation/ptmResponse/ProteinPTMResponses';
 import MatomoPageView from "../matomo/MatomoPageView";
+import MatomoProteinSearchTracker from "../matomo/MatomoProteinSearchTracker";
 
 class ProteinDetails extends PureComponent {
     constructor(props) {
@@ -78,6 +79,7 @@ class ProteinDetails extends PureComponent {
         return (
             <>
                 <MatomoPageView />
+                <MatomoProteinSearchTracker />
                 <div className="app">
                     <HeatmapToolbox>
                         <MarcsJoyride steps={tourSteps} tourEnabled={tourEnabled} />

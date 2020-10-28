@@ -9,7 +9,7 @@ import { setShowImputed } from 'components/stores/actions/scatterplotControl';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {withMatomoTrackEvent} from "../../matomo/MatomoTrackEvent";
+import { withMatomo } from "../../matomo/WithMatomo";
 
 function variantSelectFunc(selected, total) {
     if (selected === 0) return 'danger';
@@ -82,5 +82,5 @@ function mapStateToProps(state) {
     return props;
 }
 
-const ScatterplotToolboxWithTracking = withMatomoTrackEvent(_ScatterplotToolbox);
+const ScatterplotToolboxWithTracking = withMatomo(_ScatterplotToolbox);
 export default connect(mapStateToProps)(ScatterplotToolboxWithTracking);
