@@ -89,20 +89,22 @@ const Root = ({ store }) => {
                 <ConnectedRouter history={history}>
                     <div>
                         <Menu />
-                        <Switch>
-                            <Route exact path="/" component={Hello} />
-                            <Route path="/about" component={AboutPage} />
-                            <Route path="/proteins" component={ProteinDetails} />
-                            <Route path="/network" component={Network} />
-                            <Route path="/pds" component={PullDowns} />
-                            <Route path="/data/complexes" component={ComplexList} />
-                            <Route path="/data/proteins" component={ProteinList} />
-                            <Route path="/downloads" component={DownloadsPage} />
-                            <Route path="/data/" component={DataIndex} />
-                            <Route exact path="/readers/" component={ReaderLandingPage} />
-                            <Route path="/readers/:ptm" component={ReaderInfoSwitch} />
-                            <Route component={NotFound} />
-                        </Switch>
+                        <main className="flex-shrink-0 pb-4" role="main">
+                            <Switch>
+                                <Route exact path="/" component={Hello} />
+                                <Route path="/about" component={AboutPage} />
+                                <Route path="/proteins" component={ProteinDetails} />
+                                <Route path="/network" component={Network} />
+                                <Route path="/pds" component={PullDowns} />
+                                <Route path="/data/complexes" component={ComplexList} />
+                                <Route path="/data/proteins" component={ProteinList} />
+                                <Route path="/downloads" component={DownloadsPage} />
+                                <Route path="/data/" component={DataIndex} />
+                                <Route exact path="/readers/" component={ReaderLandingPage} />
+                                <Route path="/readers/:ptm" component={ReaderInfoSwitch} />
+                                <Route component={NotFound} />
+                            </Switch>
+                        </main>
                         <Footer />
                     </div>
                 </ConnectedRouter>
