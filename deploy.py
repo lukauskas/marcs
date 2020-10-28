@@ -5,7 +5,7 @@ import shutil
 import os
 import yaml
 
-from sh import docker, ssh, gzip, scp, docker_compose, Command
+from sh import docker, ssh, gzip, scp, docker_compose, Command, ErrorReturnCode_1
 import tarfile
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +25,10 @@ def create_images(server_key, server_uri):
     ssh('-i', server_key, server_uri, 'docker-compose -f docker-compose.yml -f docker-compose.prod.onserver.yml down')
 
     print('Cleaning up')
-    ssh('-i', server_key, server_uri, 'docker rmi $(docker images -a -q)')
+    try:
+        ssh('-i', server_key, server_uri, 'docker rmi $(docker images -a -q)')
+    except ErrorReturnCode_1:
+        print("Cleanup failed, probably because no images were found. Ignoring this error.")
 
     print('Saving images and transferring to {}'.format(server_uri))
 
