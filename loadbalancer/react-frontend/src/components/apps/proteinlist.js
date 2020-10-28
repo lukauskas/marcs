@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ProteinsTable from '../tables/ProteinsTable';
-import MatomoPageView from "../matomo/MatomoPageView";
+import MatomoPageView from '../matomo/MatomoPageView';
 
 export default class ProteinList extends Component {
-
     componentDidMount() {
         document.title = 'List of Proteins — MARCS';
     }
