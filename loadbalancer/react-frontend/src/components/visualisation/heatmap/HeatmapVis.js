@@ -2,12 +2,13 @@ import React, { PureComponent } from 'react';
 import {
     headerVisualMap, headerXAxis, headerYAxis, headerSeries,
 } from 'components/visualisation/heatmap/styling/header';
-import ReactEcharts from 'echarts-for-react';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import { mainHeatmapSeries, mainHeatmapVisualMap, heatmapYAxis } from 'components/visualisation/heatmap/styling/heatmap';
 import PropType from 'prop-types';
 import HelpQuestionMark from 'components/common/HelpQuestionMark';
+import ErrorToast from 'components/error/ErrorToast';
+import ReactEcharts from 'echarts-for-react';
 import { annotationSeries, annotationVisualMap, annotationXAxis } from './styling/annotation';
 
 import {
@@ -21,7 +22,7 @@ import {
 import { tooltipFormatter } from './styling/tooltip';
 
 import { GRID_BORDER_COLOR } from './styling/grid';
-import ErrorToast from 'components/error/ErrorToast';
+
 
 export default class HeatmapVis extends PureComponent {
     constructor(props) {
@@ -121,7 +122,7 @@ export default class HeatmapVis extends PureComponent {
                     saveAsImage: {
                         name: 'marcs-heatmap',
                         title: 'PNG',
-                        pixelRatio: 2,
+                        pixelRatio: 4,
                     },
                 },
                 left: 'left',
@@ -271,7 +272,7 @@ export default class HeatmapVis extends PureComponent {
                         </p>
                     </HelpQuestionMark>
                 </Card.Header>
-                <Card.Body className="overflow-auto" style={{padding: 0}}>
+                <Card.Body className="overflow-auto" style={{ padding: 0 }}>
                     {error}
                     <div className="p-3">
                         <ReactEcharts
