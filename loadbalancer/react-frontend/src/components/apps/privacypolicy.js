@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 
 import './styles/privacy.css'
 import MatomoPageView from "../matomo/MatomoPageView";
+import MatomoOptoutForm from "../matomo/MatomoOptoutForm";
 
 export default class PrivacyPolicy extends Component {
     render() {
@@ -26,7 +27,7 @@ export default class PrivacyPolicy extends Component {
                             <li className="nav-item"><a href="#section-3">III. General information on data processing</a></li>
                             <li className="nav-item"><a href="#section-4">IV. Provision of the website and creation of log files</a></li>
                             <li className="nav-item"><a href="#section-5">V. Use of Cookies</a></li>
-                            <li className="nav-item"><a href="#section-6">VI. Web Analytics by Matomo (formerly PIWIK</a></li>
+                            <li className="nav-item"><a href="#section-6">VI. Web Analytics by Matomo (formerly PIWIK)</a></li>
                             <li className="nav-item"><a href="#section-7">VII. Transfer of Personal Data to Third Parties</a></li>
                             <li className="nav-item"><a href="#section-8">VIII. Email contact</a></li>
                             <li className="nav-item"><a href="#section-9">IX. Rights of the data subject</a></li>
@@ -211,7 +212,7 @@ export default class PrivacyPolicy extends Component {
                         Note that in order to provide the opt-out form below, Matomo software sets an additional temporary cookie <em>MATOMO_SESSID</em>. This cookie is used only for security purposes as it prevents misuse of the form. You can find more information <a href="https://matomo.org/faq/general/faq_146/">here</a>.
                     </p>
                     <p>
-                        [opt-out-form goes here]
+                        <MatomoOptoutForm/>
                     </p>
                     <p>
                         You can find more information about the privacy settings of the Matomo software under the following link: <a href="https://matomo.org/docs/privacy">matomo.org/docs/privacy</a>

@@ -29,6 +29,7 @@ import {
     MATOMO_DEBUG, MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE,
 } from 'data/matomo';
 import PrivacyPolicy from "../components/apps/privacypolicy";
+import {isMatomoDisabled} from "../components/matomo/helpers";
 
 
 // eslint-disable-next-line react/prop-types
@@ -60,17 +61,16 @@ function makeMatomo() {
         },
     };
 
-    // eslint-disable-next-line eqeqeq
-    const isMatomoDisabled = String(MATOMO_DISABLED).toLowerCase() == "true";
+    const matomoDisabled = isMatomoDisabled();
 
-    if (isMatomoDisabled) {
+    if (matomoDisabled) {
         // MatomoContext will just ignore this and not say anything
-        console.log('MATOMO tracking is disabled');
+        console.log('MATOMO tracking is disabled by the administrator');
         options.disabled = true;
     }
 
     const instance = createInstance(options);
-    if (MATOMO_DEBUG && !isMatomoDisabled) {
+    if (MATOMO_DEBUG && !matomoDisabled) {
         console.group('Matomo tracking is on');
         console.log(`MATOMO_URL_BASE=${MATOMO_URL_BASE}`);
         console.log(`MATOMO_SITE_ID=${MATOMO_SITE_ID}`);
