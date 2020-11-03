@@ -42,7 +42,7 @@ export default class AboutPage extends Component {
                     <p>
                         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                             <img
-                                src="https://marcs.local/static/by-nc-sa.eu.large.svg"
+                                src="/static/by-nc-sa.eu.large.svg"
                                 alt="CC BY NC SA badge"
                                 style={{height: 50}}
                             />
