@@ -29,7 +29,7 @@ import {
     MATOMO_DEBUG, MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE,
 } from 'data/matomo';
 import PrivacyPolicy from "../components/apps/privacypolicy";
-import {isMatomoDisabled} from "../components/matomo/helpers";
+import {isMatomoDebugOn, isMatomoDisabled} from "../components/matomo/helpers";
 
 
 // eslint-disable-next-line react/prop-types
@@ -62,6 +62,7 @@ function makeMatomo() {
     };
 
     const matomoDisabled = isMatomoDisabled();
+    const matomoDebug = isMatomoDebugOn();
 
     if (matomoDisabled) {
         // MatomoContext will just ignore this and not say anything
@@ -70,7 +71,7 @@ function makeMatomo() {
     }
 
     const instance = createInstance(options);
-    if (MATOMO_DEBUG && !matomoDisabled) {
+    if (matomoDebug && !matomoDisabled) {
         console.group('Matomo tracking is on');
         console.log(`MATOMO_URL_BASE=${MATOMO_URL_BASE}`);
         console.log(`MATOMO_SITE_ID=${MATOMO_SITE_ID}`);
