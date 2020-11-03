@@ -211,9 +211,7 @@ export default class PrivacyPolicy extends Component {
                     <p>
                         Note that in order to provide the opt-out form below, Matomo software sets an additional temporary cookie <em>MATOMO_SESSID</em>. This cookie is used only for security purposes as it prevents misuse of the form. You can find more information <a href="https://matomo.org/faq/general/faq_146/">here</a>.
                     </p>
-                    <p>
-                        <MatomoOptoutForm/>
-                    </p>
+                    <MatomoOptoutForm/>
                     <p>
                         You can find more information about the privacy settings of the Matomo software under the following link: <a href="https://matomo.org/docs/privacy">matomo.org/docs/privacy</a>
                     </p>
