@@ -28,6 +28,7 @@ import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
 import {
     MATOMO_DEBUG, MATOMO_DISABLED, MATOMO_SITE_ID, MATOMO_URL_BASE,
 } from 'data/matomo';
+import PrivacyPolicy from "../components/apps/privacypolicy";
 
 
 // eslint-disable-next-line react/prop-types
@@ -93,6 +94,7 @@ const Root = ({ store }) => {
                             <Switch>
                                 <Route exact path="/" component={Hello} />
                                 <Route path="/about" component={AboutPage} />
+                                <Route path="/privacy" component={PrivacyPolicy} />
                                 <Route path="/proteins" component={ProteinDetails} />
                                 <Route path="/network" component={Network} />
                                 <Route path="/pds" component={PullDowns} />

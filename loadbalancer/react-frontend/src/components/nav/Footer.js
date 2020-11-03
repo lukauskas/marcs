@@ -38,7 +38,7 @@ export default class Footer extends Component {
                         </span>
                         <a href="https://www.helmholtz-muenchen.de/en/imprint/index.html">Imprint</a>
                         {' | '}
-                        <a href="#">Privacy policy</a>
+                        <a href="/privacy">Privacy policy</a>
                         {' | '}
                         <a href="/about#license" title="MARCS data is available under CC NC BY SA">
                             <img src="/static/by-nc-sa-small.svg" style={{ height: 20 }} />
