@@ -61,8 +61,8 @@ class Menu extends PureComponent {
                                  <NavDropdown.Item href="https://www.helmholtz-muenchen.de/en/about-us/index.html" title="About HMGU">Helmholtz Zentrum München</NavDropdown.Item>
                                  <div className="dropdown-divider" />
                                  <NavDropdown.Item href="/about#license" title="License">License</NavDropdown.Item>
-                                 <NavDropdown.Item href="/privacy" title="Privacy Policy">Privacy Policy</NavDropdown.Item>
-                                 <NavDropdown.Item href="https://www.helmholtz-muenchen.de/en/imprint/index.html" title="Imprint">Imprint</NavDropdown.Item>
+                                 <NavDropdown.Item href="/legal" title="Legal notice">Legal notice</NavDropdown.Item>
+                                 <NavDropdown.Item href="/privacy" title="Privacy policy">Privacy policy</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Resources" id="data-dropdown">
                                 <NavDropdown.Item href="/data/proteins" title="List of proteins">List of proteins</NavDropdown.Item>

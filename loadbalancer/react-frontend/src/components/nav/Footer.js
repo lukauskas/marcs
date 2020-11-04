@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import './styles/footer.css';
 import Nav from "react-bootstrap/Nav";
+import LicenseBadge from "../info/LicenseBadge";
 
 export default class Footer extends Component {
     render() {
@@ -36,13 +37,15 @@ export default class Footer extends Component {
                             </a>
                             {' | '}
                         </span>
-                        <a href="https://www.helmholtz-muenchen.de/en/imprint/index.html">Imprint</a>
+                        <a href="/legal">Legal notice</a>
                         {' | '}
                         <a href="/privacy">Privacy policy</a>
                         {' | '}
-                        <a href="/about#license" title="MARCS data is available under CC NC BY SA">
-                            <img src="/static/by-nc-sa-small.svg" style={{ height: 20 }} />
-                        </a>
+                        <LicenseBadge
+                            variant="small"
+                            title="MARCS data is available under CC NC BY SA"
+                            href="/about#license"
+                        />
                     </span>
                 </Navbar>
             </footer>

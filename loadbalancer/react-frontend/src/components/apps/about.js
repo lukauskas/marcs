@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 
 import './styles/about.css'
 import MatomoPageView from "../matomo/MatomoPageView";
+import LicenseBadge from "../info/LicenseBadge";
+import LicenseStatement from "../info/LicenseStatement";
 
 export default class AboutPage extends Component {
     render() {
@@ -39,28 +41,12 @@ export default class AboutPage extends Component {
                     <VersionInfo/>
                     <h2>License</h2>
                     <a id="license"/>
-                    <p>
-                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-                            <img
-                                src="/static/by-nc-sa.eu.large.svg"
-                                alt="CC BY NC SA badge"
-                                style={{height: 50}}
-                            />
-                        </a>
-                    </p>
-                    <p>
-                        MARCS data is available under the terms in
-                        {' '}
-                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
-                        {' '}
-                        license.
-                    </p>
+                    <LicenseBadge href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)"/>
+                    <LicenseStatement />
                     <p>
                         For enquiries about commercial uses of the data please contact
                         {' '}
-                        <a href="https://www.helmholtz-muenchen.de/ife/about-us/people/staff-detail/ma/5831/Dr-Bartke/index.html">Till Bartke</a> (till.bartke at helmholtz-muenchen dot de)
-                        {' '}
-                        for information.
+                        <a href="https://www.helmholtz-muenchen.de/ife/about-us/people/staff-detail/ma/5831/Dr-Bartke/index.html">Till Bartke</a> (till.bartke at helmholtz-muenchen dot de).
                     </p>
                 </Container>
             </>

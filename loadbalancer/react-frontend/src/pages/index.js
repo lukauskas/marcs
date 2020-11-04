@@ -30,6 +30,7 @@ import {
 } from 'data/matomo';
 import PrivacyPolicy from "../components/apps/privacypolicy";
 import {isMatomoDebugOn, isMatomoDisabled} from "../components/matomo/helpers";
+import LegalNotice from "../components/apps/legal";
 
 
 // eslint-disable-next-line react/prop-types
@@ -96,6 +97,7 @@ const Root = ({ store }) => {
                                 <Route exact path="/" component={Hello} />
                                 <Route path="/about" component={AboutPage} />
                                 <Route path="/privacy" component={PrivacyPolicy} />
+                                <Route path="/legal" component={LegalNotice} />
                                 <Route path="/proteins" component={ProteinDetails} />
                                 <Route path="/network" component={Network} />
                                 <Route path="/pds" component={PullDowns} />

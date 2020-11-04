@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import VersionInfo from "../info/VersionInfo";
-import Citation from "../info/Citation";
-import Button from "react-bootstrap/Button";
 
 import './styles/privacy.css'
 import MatomoPageView from "../matomo/MatomoPageView";
