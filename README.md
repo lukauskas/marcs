@@ -1,3 +1,5 @@
+![CC-BY-NC-SA badge](https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png)
+
 # MARCS interactive web interface.
 
 MARCS interactive web interface is split into two (optionally three) parts:
@@ -135,3 +137,9 @@ are, there should be:
 2. A `cache/proxy` directory with owner `101:101`
 
 As these will be mounted non-privileged.
+
+## License
+
+![CC-BY-NC-SA badge (large)](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
