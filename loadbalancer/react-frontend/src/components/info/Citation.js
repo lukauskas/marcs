@@ -16,17 +16,19 @@ export default function Citation(props) {
                     Flynn, H.,
                     Lindeboom, R. G. H.,
                     Barth, T. K.,
+                    Ravnsborg, T.,
                     Hauck, S. M.,
                     Jensen, O. N.,
                     Vermeulen, M.,
                     Snijders, A. P.,
+                    Müller, C. L.,
                     Schneider, R.,
-                    DiMaggio, P. D.,
+                    DiMaggio, P. A.,
                     and Bartke, T.
                     {' '}
                     <em>Decoding Chromatin States by Proteomic Profiling of Modification-Dependent Nucleosome Readers.</em>
                     {' '}
-                    Unpublished (2020).
+                    Unpublished (2021).
                 </p>
             </blockquote>
         </>
