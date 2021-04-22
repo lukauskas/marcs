@@ -175,7 +175,7 @@ export default class DownloadsPage extends Component {
                         <ul>
                             <li>Data analysis:
                                 {' '}
-                                <a href="https://github.com/lukauskas/publications-lukauskas-2020-marcs" rel="noopener noreferrer" target="_blank">
+                                <a href="https://github.com/lukauskas/publications-lukauskas-2021-marcs" rel="noopener noreferrer" target="_blank">
                                     GitHub
                                 </a>
                             </li>
