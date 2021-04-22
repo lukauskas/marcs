@@ -29,7 +29,7 @@ Docker daemon has to be installed on the system before starting.
 #### Snapanalysis image
 
 The build steps for interactive interface depend on the pre-built data analysis image.
-Please follow instructions on https://github.com/lukauskas/snap-pulldowns
+Please follow instructions on https://github.com/lukauskas/publications-lukauskas-2021-marcs
 to build the `snapanalysis` image.
 
 ####  SSL certificate
