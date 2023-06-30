@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ProteinsTable from '../tables/ProteinsTable';
 import MatomoPageView from '../matomo/MatomoPageView';
+import LicensedLink from "components/controls/LicensedLink";
 
 export default class ProteinList extends Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ export default class ProteinList extends Component {
                             Complex memberships are listed in the last column.
                         </p>
                         <p>
-                            <a className="btn btn-info" href="/api/proteins.csv" role="button">Download as CSV</a>
+                            <LicensedLink className="btn btn-info" href="/api/proteins.csv" role="button" text="Download as CSV" />
                         </p>
                     </Container>
                 </Jumbotron>

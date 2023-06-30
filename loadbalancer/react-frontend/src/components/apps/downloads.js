@@ -6,6 +6,7 @@ import { SNAP_DATA_VERSION } from "data/dataVersion";
 
 import './styles/downloads.css'
 import MatomoPageView from "../matomo/MatomoPageView";
+import LicensedLink from "components/controls/LicensedLink";
 
 function fileHref(basename, extension) {
     const {version_suffix: versionSuffix} = SNAP_DATA_VERSION;
@@ -48,45 +49,33 @@ export default class DownloadsPage extends Component {
                         <ul>
                             <li>Postprocessed data of individual Pull-Downs:
                                 {' '}
-                                <a href={fileHref('marcs.pulldowns', 'xlsx')} rel="noopener noreferrer" target="_blank">
-                                    xlsx
-                                </a>
+                                <LicensedLink href={fileHref('marcs.pulldowns', 'xlsx')} text="xlsx" />
                             </li>
                             <li>Clustered heatmap of proteins:
                                 {' '}
-                                <a href={fileHref('marcs.heatmap', 'xlsx')} rel="noopener noreferrer" target="_blank">
-                                    xlsx
-                                </a>
+                                <LicensedLink href={fileHref('marcs.heatmap', 'xlsx')} text="xlsx" />
                             </li>
                             <li>Additionally, clustered heatmap of proteins split into multiple csv files:
                                 <ul>
                                     <li>
                                         Heatmap:
                                         {' '}
-                                        <a href={fileHref('marcs.heatmap', 'csv.gz')} rel="noopener noreferrer" target="_blank">
-                                            csv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.heatmap.sheet.01.heatmap', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                     <li>
                                         Information about rows:
                                         {' '}
-                                        <a href={fileHref('marcs.heatmap.metadata', 'csv.gz')} rel="noopener noreferrer" target="_blank">
-                                            csv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.heatmap.sheet.01.metadata', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                     <li>
                                         Imputation status of cells:
                                         {' '}
-                                        <a href={fileHref('marcs.heatmap.imputation_type', 'csv.gz')} rel="noopener noreferrer" target="_blank">
-                                            csv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.heatmap.sheet.03.imputation_type', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                     <li>
                                         List of proteins sheet:
                                         {' '}
-                                        <a href={fileHref('marcs.heatmap.list_of_proteins', 'csv.gz')} rel="noopener noreferrer" target="_blank">
-                                            csv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.heatmap.sheet.02.list_of_proteins', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                 </ul>
                             </li>
@@ -98,16 +87,12 @@ export default class DownloadsPage extends Component {
                             <li>
                                 Estimated effects for chromatin features (proteins):
                                 {' '}
-                                <a href={fileHref('marcs.ptm-response-proteins', 'xlsx')} rel="noopener noreferrer" target="_blank">
-                                    xlsx
-                                </a>
+                                <LicensedLink href={fileHref('marcs.ptm-response-proteins', 'xlsx')} text="xlsx" />
                             </li>
                             <li>
                                 Estimated effects for chromatin features (curated complexes):
                                 {' '}
-                                <a href={fileHref('marcs.ptm-response-complexes', 'xlsx')} rel="noopener noreferrer" target="_blank">
-                                    xlsx
-                                </a>
+                                <LicensedLink href={fileHref('marcs.ptm-response-complexes', 'xlsx')}  text="xlsx" />
                             </li>
                         </ul>
                     </p>
@@ -117,9 +102,7 @@ export default class DownloadsPage extends Component {
                             <li>
                                 Network interactions and nodes (with formatting, significant edges only):
                                 {' '}
-                                <a href={fileHref('marcs.network', 'xlsx')} rel="noopener noreferrer" target="_blank">
-                                    xlsx
-                                </a>
+                                <LicensedLink href={fileHref('marcs.network', 'xlsx')} text="xlsx" />
                             </li>
                             <li>
                                 Network interactions (edges):
@@ -128,25 +111,19 @@ export default class DownloadsPage extends Component {
                                     <li>
                                         Partial list (significant only, up to q ≤ 0.05):
                                         {' '}
-                                        <a href={fileHref('marcs.network.edges.filtered', 'tsv.gz')} rel="noopener noreferrer" target="_blank">
-                                            tsv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.network.sheet.01.edges.filtered', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                    <li>
                                         Complete list:
                                         {' '}
-                                        <a href={fileHref('marcs.network.edges.full', 'tsv.gz')} rel="noopener noreferrer" target="_blank">
-                                            tsv.gz
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.network.sheet.01.edges.full', 'tsv.gz')} text="tsv.gz" />
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 Network nodes:
                                 {' '}
-                                <a href={fileHref('marcs.network.nodes', 'tsv.gz')} rel="noopener noreferrer" target="_blank">
-                                    tsv.gz
-                                </a>
+                                <LicensedLink href={fileHref('marcs.network.sheet.02.nodes', 'tsv.gz')} text="tsv.gz" />
                             </li>
                             <li>
                                 Networks:
@@ -155,16 +132,12 @@ export default class DownloadsPage extends Component {
                                     <li>
                                         High-confidence network:
                                         {' '}
-                                        <a href={fileHref('marcs.network.high-confidence', 'gexf')} rel="noopener noreferrer" target="_blank">
-                                            gexf
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.network.high-confidence', 'gexf')} text="gexf" />
                                     </li>
                                    <li>
                                         Main network (q ≤ 0.001):
                                         {' '}
-                                        <a href={fileHref('marcs.network.q.0.001', 'gexf')} rel="noopener noreferrer" target="_blank">
-                                            gexf
-                                        </a>
+                                        <LicensedLink href={fileHref('marcs.network.q.0.001', 'gexf')} text="gexf" />
                                     </li>
                                 </ul>
                             </li>

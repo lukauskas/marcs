@@ -3,6 +3,7 @@ services:
   loadbalancer:
     image: snap-web-loadbalancer-prod
     environment:
-      - NGINX_HOST=marcs.helmholtz-muenchen.de
+      - NGINX_HOST=marcs.helmholtz-munich.de
+      - NGINX_HOST_ALTERNATIVE=marcs.helmholtz-muenchen.de
   api:
     image: snap-web-api-prod

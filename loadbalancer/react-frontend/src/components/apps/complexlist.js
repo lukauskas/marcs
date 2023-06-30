@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import ComplexesTable from 'components/tables/ComplexesTable';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MatomoPageView from "../matomo/MatomoPageView";
+import LicensedLink from "components/controls/LicensedLink";
 
 export default class ComplexList extends Component {
 
@@ -24,7 +25,7 @@ export default class ComplexList extends Component {
                             Sources are listed in the appropriate column.
                         </p>
                         <p>
-                            <a className="btn btn-info" href="/api/complexes.csv" role="button">Download as CSV</a>
+                            <LicensedLink className="btn btn-info" href="/api/complexes.csv" role="button" text="Download as CSV" />
                         </p>
                     </Container>
                 </Jumbotron>

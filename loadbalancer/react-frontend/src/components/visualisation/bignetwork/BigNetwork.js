@@ -141,12 +141,19 @@ class BigNetwork extends Component {
 
     componentDidMount = () => {
         this.fetchData();
+        this.fetchColours();
     };
+
+
 
     // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { colourKey: prevColourKey } = prevProps;
-        const { colourKey } = this.props;
+        this.fetchColoursIfNewOnesNeeded(prevColourKey);
+    }
+
+    fetchColoursIfNewOnesNeeded(prevColourKey) {
+        const {colourKey} = this.props;
 
         if (colourKey !== prevColourKey) {
             // Colour key changed

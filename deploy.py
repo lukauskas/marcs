@@ -12,12 +12,12 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 build_images = Command("./prebuild_prod.sh")
 
-def create_images(server_key, server_uri):
+def create_images(marcs_for_web_archive, server_key, server_uri):
     print('Building prod images')
-    build_images()
+    build_images(marcs_for_web_archive)
 
     with open(os.path.join(here, 'docker-compose.prod.yml')) as f:
-        compose = yaml.load(f)
+        compose = yaml.safe_load(f)
         services = compose['services']
 
     images = [service['image'] for service in services.values()]
@@ -43,10 +43,11 @@ def create_images(server_key, server_uri):
 
 
 @click.command()
+@click.argument('marcs_for_web_archive')
 @click.argument('server_url')
 @click.argument('server_key')
-def main(server_key, server_url):
-    create_images(server_key, server_url)
+def main(marcs_for_web_archive, server_key, server_url):
+    create_images(marcs_for_web_archive, server_key, server_url)
 
 
 if __name__ == '__main__':

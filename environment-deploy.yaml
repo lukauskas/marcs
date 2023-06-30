@@ -1,0 +1,8 @@
+name: 'marcs-deploy-env'
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pyyaml=6.0
+  - sh=1.13.1
+  - click=8.1.2

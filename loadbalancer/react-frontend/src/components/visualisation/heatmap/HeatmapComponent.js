@@ -22,102 +22,186 @@ class HeatmapComponent extends Component {
         this.state = this.getInitialState();
     }
 
+    // Note that this function is agnostic at props, this is expected
+    // We will be triggering state update in componentDidMount instead
     getInitialState = () => ({
-        fetchingList: new Set(),
-        data: [],
-        dataComplexes: [],
-        dataDomains: [],
-        proteinOrder: [],
-        complexOrder: [],
-        domainOrder: [],
-        errorMessage: '',
-        needsReclustering: 'no',
-        pdOrder: [],
+            fetchingList: new Set(),
+            data: [],
+            dataComplexes: [],
+            dataDomains: [],
+            proteinOrder: [],
+            complexOrder: [],
+            domainOrder: [],
+            errorMessage: '',
+            needsReclustering: 'no',
+            pdOrder: [],
     });
-
 
     // Lifecycle
     componentDidMount() {
-        const totalSelected = HeatmapComponent.totalSelected(this.props);
-        const { selectedPullDowns, defaultPdOrder } = this.props;
 
-        const mountedWithProteins = totalSelected.size > 0;
-        const mountedWithPDs = selectedPullDowns.length > 0;
+        const prevTotalSelected = new Set([]);
+        const prevSelectedPullDowns = new Set([]);
+        // TODO: This should not be hardcoded here
+        // It should use a variable with the default setting
+        // This might cause problems if defaults change somewhere upstream;
+        const prevUseDefaultPdOrder = true;
+        const prevAnnotationType = 'complex';
 
-        // Sometimes this happens
-        if (mountedWithProteins || mountedWithProteins) {
-            const mountStateUpdate = {
-                needsReclustering: 'all',
-            };
-            if (mountedWithProteins) {
-                const order = [...totalSelected].sort();
-                this.fetchDataFor(order);
-                mountStateUpdate.proteinOrder = order;
-            }
-            if (mountedWithPDs) {
-                mountStateUpdate.pdOrder = defaultPdOrder.filter(x => selectedPullDowns.includes(x));
-            }
-            this.setState(mountStateUpdate);
-        }
+        // This is needed for cases when we mount with protein/pd selection
+        this.updateStateBasedOnNewSelection(
+            prevTotalSelected,
+            prevSelectedPullDowns,
+            prevUseDefaultPdOrder,
+            prevAnnotationType,
+        );
+
     }
+
 
     // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const totalSelected = HeatmapComponent.totalSelected(this.props);
-        const prevTotalSelected = HeatmapComponent.totalSelected(prevProps);
 
-        const {
-            selectedPullDowns,
-            useDefaultPdOrder,
-            defaultPdOrder,
-            annotationType,
-            clusterProteins,
-        } = this.props;
+        const prevTotalSelected = HeatmapComponent.totalSelected(prevProps);
         const {
             selectedPullDowns: prevSelectedPullDowns,
             useDefaultPdOrder: prevUseDefaultPdOrder,
             annotationType: prevAnnotationType,
         } = prevProps;
 
+        const stateUpdated = this.updateStateBasedOnNewSelection(
+            prevTotalSelected,
+            prevSelectedPullDowns,
+            prevUseDefaultPdOrder,
+            prevAnnotationType,
+        );
+
+        if (!stateUpdated) this.tryReclusterIfNeeded();
+    }
+
+    tryReclusterIfNeeded() {
+        const {
+            useDefaultPdOrder,
+            clusterProteins,
+            annotationType,
+        } = this.props;
+
+        const {
+            needsReclustering,
+        } = this.state;
+
+        // If we are waiting for recluster, and we're not currently loading new data
+        if ((needsReclustering !== 'no') && (!this.isLoading(this.state))) {
+
+            const newState = {
+                needsReclustering: 'no',
+            };
+
+            if (['all', 'row'].includes(needsReclustering)) {
+                // Recluster rows
+                let newProteinOrder;
+                if (!clusterProteins) {
+                    console.info('Protein clustering is off');
+                    newProteinOrder = Array.from(HeatmapComponent.totalSelected(this.props)).sort().reverse();
+                } else {
+                    newProteinOrder = this.clusterData('row');
+                }
+
+                if (newProteinOrder !== null) {
+                    newState.proteinOrder = newProteinOrder;
+                }
+            }
+
+            if ((!useDefaultPdOrder) && ['all', 'col'].includes(needsReclustering)) {
+                // Recluster cols
+                const newPdOrder = this.clusterData('col');
+                if (newPdOrder !== null) {
+                    newState.pdOrder = newPdOrder;
+                }
+            }
+
+            if (['all', 'annotation'].includes(needsReclustering)) {
+                if (annotationType === 'domain') {
+                    const newDomainOrder = this.clusterAnnotData('domain');
+                    if (newDomainOrder !== null) {
+                        newState.domainOrder = newDomainOrder;
+                    }
+                } else {
+                    const newComplexOrder = this.clusterAnnotData('complex');
+                    if (newComplexOrder !== null) {
+                        newState.complexOrder = newComplexOrder;
+                    }
+                }
+            }
+
+            this.setState(newState);
+            return true;
+        }
+
+        return false;
+
+    }
+
+    updateStateBasedOnNewSelection(
+        prevTotalSelected,
+        prevSelectedPullDowns,
+        prevUseDefaultPdOrder,
+        prevAnnotationType,
+    ) {
+
+        const totalSelected = HeatmapComponent.totalSelected(this.props);
+        const {
+            selectedPullDowns,
+            useDefaultPdOrder,
+            annotationType
+        } = this.props;
+
+        const proteinSelectChanged = !_.isEqual(prevTotalSelected, totalSelected);
+        const pdSelectChanged = !_.isEqual(selectedPullDowns, prevSelectedPullDowns);
+        const useDefaultOrderChanged = prevUseDefaultPdOrder !== useDefaultPdOrder;
+        const annotationTypeChanged = prevAnnotationType !== annotationType;
+
+        if (!proteinSelectChanged && !pdSelectChanged && !useDefaultOrderChanged && !annotationTypeChanged) return false;
+
         const {
             fetchingList,
             proteinOrder,
             pdOrder,
-            needsReclustering,
         } = this.state;
 
-        const proteinSelectChanged = !_.isEqual(prevTotalSelected, totalSelected);
-        const pdSelectChanged = !_.isEqual(selectedPullDowns, prevSelectedPullDowns);
+        const selectionUpdateState = {};
 
-        if (proteinSelectChanged || pdSelectChanged) {
-            const selectionUpdateState = {};
+        if (proteinSelectChanged) {
+            const arraySelectedList = [...totalSelected];
+            const toAdd = arraySelectedList.filter(x => (!fetchingList.has(x))
+                && (!prevTotalSelected.has(x)));
 
-            if (proteinSelectChanged) {
-                const arraySelectedList = [...totalSelected];
-                const toAdd = arraySelectedList.filter(x => (!fetchingList.has(x))
-                                                        && (!prevTotalSelected.has(x)));
+            const toRemove = [...prevTotalSelected].filter(x => !totalSelected.has(x));
 
-                const toRemove = [...prevTotalSelected].filter(x => !totalSelected.has(x));
+            if (toAdd.length > 0) this.fetchDataFor(toAdd);
+            if (toRemove.length > 0) this.removeData(toRemove);
 
-                if (toAdd.length > 0) this.fetchDataFor(toAdd);
-                if (toRemove.length > 0) this.removeData(toRemove);
+            const newProteinOrder = [...proteinOrder.filter(x => !toRemove.includes(x)),
+                ...toAdd];
 
-                const newProteinOrder = [...proteinOrder.filter(x => !toRemove.includes(x)),
-                    ...toAdd];
+            selectionUpdateState.proteinOrder = newProteinOrder;
+            selectionUpdateState.needsReclustering = 'all';
+        }
 
-                selectionUpdateState.proteinOrder = newProteinOrder;
-                selectionUpdateState.needsReclustering = 'all';
-            }
+        if (pdSelectChanged || useDefaultOrderChanged) {
+            const { defaultPdOrder } = this.props;
+            const setSelectedPulldowns = new Set(selectedPullDowns);
 
-            if (pdSelectChanged) {
-                const setSelectedPulldowns = new Set(selectedPullDowns);
+            let newPdOrder = null;
 
-                let newPdOrder = null;
+            if (useDefaultPdOrder) {
+                selectionUpdateState.pdOrder = defaultPdOrder.filter(x => setSelectedPulldowns.has(x));
+                if (pdSelectChanged) selectionUpdateState.needsReclustering = 'all';
 
-                if (useDefaultPdOrder) {
-                    newPdOrder = defaultPdOrder.filter(x => setSelectedPulldowns.has(x));
-                } else {
-                    const toAddPd = selectedPullDowns
+            } else {
+
+                if (pdSelectChanged) {
+                        const toAddPd = selectedPullDowns
                         .filter(x => !prevSelectedPullDowns.includes(x));
                     const toRemovePd = [...prevSelectedPullDowns]
                         .filter(x => !setSelectedPulldowns.has(x));
@@ -126,76 +210,24 @@ class HeatmapComponent extends Component {
                         ...pdOrder.filter(x => !toRemovePd.includes(x)),
                         ...toAddPd,
                     ];
+                    selectionUpdateState.pdOrder = newPdOrder;
+                    selectionUpdateState.needsReclustering = 'all';
+                } else {
+                    selectionUpdateState.needsReclustering = 'col';
                 }
+            }
+        }
 
-                selectionUpdateState.pdOrder = newPdOrder;
+        if (annotationTypeChanged) {
+            if (selectionUpdateState.needsReclustering === undefined) {
+                selectionUpdateState.needsReclustering = 'annotation';
+            } else {
                 selectionUpdateState.needsReclustering = 'all';
             }
-
-            this.setState(selectionUpdateState);
-        } else if (needsReclustering !== 'no') {
-            // We need to recluster the data
-            if (!this.isLoading(this.state)) {
-                const newState = {
-                    needsReclustering: 'no',
-                };
-
-                if (['all', 'row'].includes(needsReclustering)) {
-                    // Recluster rows
-                    let newProteinOrder;
-                    if (!clusterProteins) {
-                        console.info('Protein clustering is off');
-                        newProteinOrder = Array.from(HeatmapComponent.totalSelected(this.props)).sort().reverse();
-                    } else {
-                        newProteinOrder = this.clusterData('row');
-                    }
-
-                    if (newProteinOrder !== null) {
-                        newState.proteinOrder = newProteinOrder;
-                    }
-                }
-
-                if ((!useDefaultPdOrder) && ['all', 'col'].includes(needsReclustering)) {
-                    // Recluster cols
-                    const newPdOrder = this.clusterData('col');
-                    if (newPdOrder !== null) {
-                        newState.pdOrder = newPdOrder;
-                    }
-                }
-
-                if (['all', 'annotation'].includes(needsReclustering)) {
-                    if (annotationType === 'domain') {
-                        const newDomainOrder = this.clusterAnnotData('domain');
-                        if (newDomainOrder !== null) {
-                            newState.domainOrder = newDomainOrder;
-                        }
-                    } else {
-                        const newComplexOrder = this.clusterAnnotData('complex');
-                        if (newComplexOrder !== null) {
-                            newState.complexOrder = newComplexOrder;
-                        }
-                    }
-                }
-
-                this.setState(newState);
-            }
-        } else if (prevUseDefaultPdOrder !== useDefaultPdOrder) {
-            if (!useDefaultPdOrder) {
-                // Changed clustering preferences, need to recluster
-                this.setState({
-                    needsReclustering: 'col',
-                });
-            } else {
-                const setSelectedPulldowns = new Set(selectedPullDowns);
-                this.setState({
-                    pdOrder: defaultPdOrder.filter(x => setSelectedPulldowns.has(x)),
-                });
-            }
-        } else if (prevAnnotationType !== annotationType) {
-            this.setState({
-                needsReclustering: 'annotation',
-            });
         }
+
+        this.setState(selectionUpdateState);
+        return true;
     }
 
     isLoading = (state = null) => {
@@ -403,9 +435,9 @@ class HeatmapComponent extends Component {
         let newOrder;
 
         if (axis === 'row') {
-            newOrder = clusters.index.map(ix => rows[ix.index]);
+            newOrder = clusters.indices().map(ix => rows[ix]);
         } else {
-            newOrder = clusters.index.map(ix => columns[ix.index]);
+            newOrder = clusters.indices().map(ix => columns[ix]);
         }
 
         return newOrder;
@@ -479,7 +511,7 @@ class HeatmapComponent extends Component {
             method: 'complete',
         });
 
-        return clusters.index.map(ix => rows[ix.index]);
+        return clusters.indices().map(ix => rows[ix]);
     };
 
 
@@ -527,17 +559,19 @@ class HeatmapComponent extends Component {
     render() {
         const { proteinOrder, errorMessage, pdOrder } = this.state;
         return (
-            <HeatmapVis
-                data={this.dataToEchartsDatasetSource()}
-                selectedProteins={proteinOrder}
-                showLoading={this.isLoading()}
-                errorMessage={errorMessage}
-                onErrorMessageClose={this.clearError}
-                dataAnnotation={this.annotationDataEcharts()}
-                annotationOrder={this.annotationOrder()}
-                annotationXLabel={this.annotationXLabel()}
-                selectedPullDowns={pdOrder}
-            />
+            <>
+                <HeatmapVis
+                    data={this.dataToEchartsDatasetSource()}
+                    selectedProteins={proteinOrder}
+                    showLoading={this.isLoading()}
+                    errorMessage={errorMessage}
+                    onErrorMessageClose={this.clearError}
+                    dataAnnotation={this.annotationDataEcharts()}
+                    annotationOrder={this.annotationOrder()}
+                    annotationXLabel={this.annotationXLabel()}
+                    selectedPullDowns={pdOrder}
+                />
+            </>
         );
     }
 }

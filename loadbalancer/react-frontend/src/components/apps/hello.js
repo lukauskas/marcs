@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
@@ -7,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Joyride from 'react-joyride';
 
 import Citation from 'components/info/Citation';
+import LicenseBadge from 'components/info/LicenseBadge';
+import LicenseStatement from 'components/info/LicenseStatement';
 import networkImg from './images/network.png';
 import heatmapImg from './images/heatmap.png';
 import pdsImg from './images/pds.png';
@@ -181,6 +186,20 @@ export default class Hello extends Component {
                             </Card.Body>
                         </Card>
                     </CardDeck>
+                </Container>
+                <Container>
+                    <p>
+                            <small>
+                            <LicenseStatement />
+                            </small>
+                    </p>
+                    <p>
+                        <LicenseBadge
+                            variant="small"
+                            title="MARCS data is available under CC NC BY SA"
+                            href="/about#license"
+                            />
+                    </p>
                 </Container>
                 </>
         );

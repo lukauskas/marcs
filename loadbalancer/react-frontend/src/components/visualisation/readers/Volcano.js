@@ -1,15 +1,19 @@
 import ReactECharts from "echarts-for-react";
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import confirmLicenseAndSaveAsImageTool from 'components/visualisation/confirmLicenseAndSaveAsImage';
+import { withMatomo } from "../../matomo/WithMatomo";
 
 const FC_THRESHOLD = 1.0;
 
-export default class Volcano extends PureComponent {
+class Volcano extends PureComponent {
 
     constructor(props) {
         super(props);
         this.echartsInstance = null;
     }
+
+    getEchartsInstance = () => this.echartsInstance;
 
     paddingTop = () => 90;
 
@@ -21,9 +25,8 @@ export default class Volcano extends PureComponent {
 
     getOption = () => {
         const {
-            ptm, dataset: data, highlightType,
+            ptm, dataset: data, highlightType, trackEvent
         } = this.props;
-
 
         const dataWithClasses = data.map(row => {
             const newRow = {...row};
@@ -70,10 +73,11 @@ export default class Volcano extends PureComponent {
             dataset,
             toolbox: {
                 feature: {
-                    saveAsImage: {
-                        name: `marcs-volcano-${ptm}`,
-                        title: 'PNG',
-                    },
+                    mySaveAsImage: confirmLicenseAndSaveAsImageTool(
+                        this.getEchartsInstance, 
+                        trackEvent,
+                        "marcs-feature-effects-volcano"
+                    ),
                 },
             },
             grid: {
@@ -228,3 +232,5 @@ Volcano.defaultProps = {
     className: null,
     highlightType: 'none',
 };
+
+export default withMatomo(Volcano);

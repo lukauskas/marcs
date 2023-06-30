@@ -30,7 +30,7 @@ class _ScatterplotToolbox extends Component {
             value: `${newValue}`,
         });
 
-        dispatch(setShowImputed(!newValue));
+        dispatch(setShowImputed(newValue));
     };
 
     render() {

@@ -1,13 +1,7 @@
 # ------- Pre-compiling ---------------------------------
-FROM snapanalysis as snap
-COPY ./react-frontend/precompile /extra
-RUN python /extra/gene_select.py
-RUN python /extra/predictors.py
-RUN python /extra/collect_downloads.py
-
 # -- main build ----
 
-FROM nginxinc/nginx-unprivileged:alpine
+FROM nginxinc/nginx-unprivileged:1.21.1-alpine
 
 COPY http.conf /etc/nginx/conf.d/http.conf
 COPY masked_logging.conf /etc/nginx/conf.d/masked_logging.conf
@@ -21,9 +15,22 @@ USER root
 RUN mkdir -p /cache/proxy \
     && chown -R 101:0 /cache/proxy \
     && chmod -R g+w /cache/proxy
+
+
+# And the temp directories
+
+ARG MARCS_DATA_FILE
+RUN mkdir /tmp/marcsimport
+COPY $MARCS_DATA_FILE /tmp/marcsimport/marcs-data-file.tar.gz
+#COPY --from=snap /downloads/. /usr/share/nginx/html/downloads
+RUN tar -xvf /tmp/marcsimport/marcs-data-file.tar.gz -C /tmp/marcsimport \
+    && mv /tmp/marcsimport/output/web/downloads /usr/share/nginx/html/downloads \
+    && chown -R 101:0 /usr/share/nginx/html/downloads \
+    && chmod -R g-wx /usr/share/nginx/html/downloads \
+    && rm -rf /tmp/marcsimport
+
 USER 101
 
-COPY --from=snap /downloads/. /usr/share/nginx/html/downloads
 COPY ./static/ /usr/share/nginx/html/static
 
 ENV NGINX_HOST localhost

@@ -1,14 +1,4 @@
-FROM snapanalysis as snap
-COPY ./precompile /extra
-RUN python /extra/extract_gene_meta.py \
-    && python /extra/extract_matrix.py \
-    && python /extra/extract_predictors.py \
-    && python /extra/extract_annotations.py \
-    && python /extra/extract_networks.py \
-    && python /extra/extract_ptm_response.py \
-    && python /extra/extract_build_version.py
-
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10
+FROM bynect/hypercorn-fastapi:python3.8-alpine
 
 # This is based on https://github.com/nginxinc/docker-nginx-unprivileged/blob/master/stable/alpine/Dockerfile
 # mimicking setup for nginx
@@ -34,26 +24,26 @@ RUN apk --update add --no-cache --virtual .build-deps \
                                           m4 \
                                           tar \
                                           zlib-dev \
-    && apk add --no-cache freetype-dev libpng-dev openblas-dev
-
-# Build HDF5 (based on https://github.com/NOAA-OWP/DMOD/blob/5b5eea6f59cb2e5003bc30638b9e05b2bb1fd796/docker/main/nwm/deps/Dockerfile)
-RUN cd /tmp/ \
-    && wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz \
-    && tar -xzf hdf5-1.12.0.tar.gz \
-    && cd hdf5-1.12.0 \
-    && ./configure --prefix=/usr \
-    && make -j 8 && make install
+    && apk add --no-cache freetype-dev libpng-dev openblas-dev rust hdf5-dev cargo
 
 # Python deps
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir --upgrade numpy==1.18.4 Cython==0.29.17 \
-    && pip install --no-cache-dir --upgrade pandas==1.0.3 tables==3.6.1 \
-    && pip install --no-cache-dir --upgrade ujson==2.0.3 \
+    && pip install --no-cache-dir --upgrade numpy==1.22.3 Cython==0.29.28 \
+    && pip install --no-cache-dir --upgrade pandas==1.4.2 tables==3.7.0 \
+    && pip install --no-cache-dir --upgrade --no-binary=orjson orjson==3.6.7 \
     && rm -rf ~/.cache/pip
 
 RUN apk del .build-deps
 
-COPY --from=snap /precompiled/* /precompiled/
+ARG MARCS_DATA_FILE
+RUN mkdir /tmp/marcsimport
+COPY $MARCS_DATA_FILE /tmp/marcsimport/marcs-data-file.tar.gz
+RUN tar -xvf /tmp/marcsimport/marcs-data-file.tar.gz -C /tmp/marcsimport \
+    && mkdir /precompiled/ \
+    && mv /tmp/marcsimport/output/web/api/precompiled/* /precompiled/ \
+    && chown -R 101:0 /precompiled/ \
+    && rm -rf /tmp/marcsimport
+
 COPY ./app /app
 
 ARG BUILD_DATE
@@ -64,9 +54,9 @@ LABEL org.label-schema.vcs-ref="$COMMIT" \
 
 RUN mkdir /build && python -c "import pickle; f = open('/build/info.pickle', 'wb'); pickle.dump(dict(date='$BUILD_DATE', commit='$COMMIT'), f, protocol=pickle.HIGHEST_PROTOCOL); f.close()"
 
-# We don't need root to run this...
-ENV PORT=8080
-
+ENV TCP_PORT=8080
 EXPOSE 8080
+
+# Switch back to non-root user
 USER 101
 

@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import PullDownBadges from 'components/common/PullDownBadges';
 import parseAxiosError from "../../helpers/parseAxiosError";
 import ErrorToast from "../../error/ErrorToast";
+import confirmLicenseAndSaveAsImageTool from 'components/visualisation/confirmLicenseAndSaveAsImage';
+import {withMatomo} from 'components/matomo/WithMatomo';
 
 function absMax(data) {
     const maxForward = Math.max(...data.map(x => Math.abs(x.ratio_forward)));
@@ -20,6 +22,8 @@ class PullDownScatterplotVis extends PureComponent {
         this.echartsInstance = null;
     }
 
+    getEchartsInstance = () => this.echartsInstance;
+
     paddingTop = () => 30;
 
     paddingBottom = () => 40;
@@ -30,9 +34,9 @@ class PullDownScatterplotVis extends PureComponent {
 
     getOption = () => {
         const {
-            dataset, proteinHighlights, pd, absMax,
+            dataset, proteinHighlights, pd, absMax, trackEvent,
         } = this.props;
-
+        
         const highlightCategories = Object.keys(proteinHighlights).slice(0);
         const highlightColors = Object.values(proteinHighlights).slice(0);
 
@@ -44,10 +48,11 @@ class PullDownScatterplotVis extends PureComponent {
             dataset,
             toolbox: {
                 feature: {
-                    saveAsImage: {
-                        name: `marcs-scatterplot-${pd}`,
-                        title: 'PNG',
-                    },
+                    mySaveAsImage: confirmLicenseAndSaveAsImageTool(
+                        this.getEchartsInstance, 
+                        trackEvent,
+                        "marcs-heatmap"
+                    ),
                     restore: {
                         show: true,
                         title: 'Reset',
@@ -232,6 +237,8 @@ PullDownScatterplotVis.defaultProps = {
     className: null,
 };
 
+const PullDownScatterplotVisWithMatomo = withMatomo(PullDownScatterplotVis);
+
 class PullDownComponent extends Component {
     constructor(props) {
         super(props);
@@ -388,7 +395,7 @@ class PullDownComponent extends Component {
                 <Card.Body style={{ height: 'auto' }} className="p-0">
                     {error}
                     <div className="embed-responsive embed-responsive-1by1">
-                        <PullDownScatterplotVis
+                        <PullDownScatterplotVisWithMatomo
                             className="embed-responsive-item"
                             dataset={this.dataToEchartsDataset()}
                             chartGroup={chartGroup}

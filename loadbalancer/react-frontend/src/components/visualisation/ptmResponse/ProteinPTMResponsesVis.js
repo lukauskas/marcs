@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { quantileSeq } from 'mathjs';
 
 import { PTM_PREDICTOR_ORDER } from 'data/ptms';
+import confirmLicenseAndSaveAsImageTool from 'components/visualisation/confirmLicenseAndSaveAsImage';
+import { withMatomo } from 'components/matomo/WithMatomo';
 
 import {
     ptmResponseXAxis,
@@ -46,6 +48,8 @@ class ProteinPTMResponsesVis extends PureComponent {
         this.echartsInstance = null;
     }
 
+    getEchartsInstance = () => this.echartsInstance;
+
     paddingTop = () => 10;
 
     paddingLeft = () => 150;
@@ -63,8 +67,7 @@ class ProteinPTMResponsesVis extends PureComponent {
     };
 
     getOption = () => {
-        const { data } = this.props;
-
+        const { data, trackEvent } = this.props;
 
         const boxPlotData = PTM_PREDICTOR_ORDER.map(x => this.echartsBoxplotSeries(x));
 
@@ -82,10 +85,15 @@ class ProteinPTMResponsesVis extends PureComponent {
             yAxis: ptmResponseYAxis(this.paddingLeft()),
             xAxis: ptmResponseXAxis(xMin, xMax),
             toolbox: {
-                saveAsImage: {
-                    name: 'factor-scores',
-                    title: 'PNG',
+                feature: {
+                    mySaveAsImage: confirmLicenseAndSaveAsImageTool(
+                        this.getEchartsInstance, 
+                        trackEvent,
+                        "marcs-feature-effects"
+                    ),
                 },
+                right: 30,
+                top: 5,
             },
             tooltip: {
                 show: false,
@@ -155,4 +163,4 @@ ProteinPTMResponsesVis.defaultProps = {
 };
 
 
-export default ProteinPTMResponsesVis;
+export default withMatomo(ProteinPTMResponsesVis);

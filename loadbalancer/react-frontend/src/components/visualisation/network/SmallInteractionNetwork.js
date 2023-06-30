@@ -23,10 +23,23 @@ class SmallInteractionNetwork extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const { selectedProteins } = this.props;
-        const { selectedProteins: prevSelectedProteins } = prevProps;
+    // Lifecycle
+    componentDidMount() {
 
+        const prevSelectedProteins = new Set([]);
+        // This is needed for cases when we mount with protein selection already
+        this.fetchNewDataIfNeeded(prevSelectedProteins);
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        const { selectedProteins: prevSelectedProteins } = prevProps;
+        this.fetchNewDataIfNeeded(prevSelectedProteins);
+    }
+
+    fetchNewDataIfNeeded(prevSelectedProteins) {
+        const { selectedProteins } = this.props;
         if (!_.isEqual(selectedProteins, prevSelectedProteins)) {
             this.fetchData();
         }

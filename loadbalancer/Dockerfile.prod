@@ -1,23 +1,29 @@
 # --- Pre-build the react frontend ----------------------
 # Currently this is copy-paste from the hot version ... Not sure how to import a dockerfile.
 
-# ------- Pre-compiling ---------------------------------
-FROM snapanalysis as snap
-COPY ./react-frontend/precompile /extra
-RUN python /extra/gene_select.py
-RUN python /extra/predictors.py
-RUN python /extra/collect_downloads.py
+
 # -------- Webpack compiling  ----------------------------
 
-FROM node:latest as webpack
+FROM node:16-bullseye as webpack
 WORKDIR /webpackbuild
 
 COPY react-frontend/package-lock.json react-frontend/package.json ./
-RUN npm install --no-progress --ignore-optional
+RUN npm install --no-progress --ignore-optional --legacy-peer-deps
 
 COPY react-frontend/webpack.config.js ./
 COPY react-frontend/data ./data
-COPY --from=snap /precompiled/* ./data/
+
+ARG MARCS_DATA_FILE
+RUN mkdir /tmp/marcsimport
+
+COPY $MARCS_DATA_FILE /tmp/marcsimport/marcs-data-file.tar.gz
+RUN tar -xvf /tmp/marcsimport/marcs-data-file.tar.gz -C /tmp/marcsimport \
+    && mv /tmp/marcsimport/output/web/precompiled/* ./data/ \
+    # Extract the downloads too so we can copy it in the next setp
+    && mkdir /extra/ \
+    && mv /tmp/marcsimport/output/web/downloads /extra/downloads \
+    && rm -rf /tmp/marcsimport
+
 COPY react-frontend/config ./config
 COPY react-frontend/src ./src
 
@@ -42,7 +48,7 @@ RUN echo "export const WEB_INTERFACE_BUILD_DATE = '$BUILD_DATE';\nexport const W
 RUN npm run build
 
 # -- NGINX set up --------------------------------------
-FROM nginxinc/nginx-unprivileged:alpine
+FROM nginxinc/nginx-unprivileged:1.21.1-alpine
 
 COPY http.conf /etc/nginx/conf.d/http.conf
 COPY masked_logging.conf /etc/nginx/conf.d/masked_logging.conf
@@ -57,10 +63,10 @@ RUN mkdir -p /cache/proxy \
     && chmod -R g+w /cache/proxy
 USER 101
 
-COPY --from=snap /downloads/. /usr/share/nginx/html/downloads
 COPY --from=webpack /webpackbuild/build/. /usr/share/nginx/html/react
-COPY ./static/ /usr/share/nginx/html/static
+COPY --from=webpack /extra/downloads/. /usr/share/nginx/html/downloads
 
+COPY ./static/ /usr/share/nginx/html/static
 
 ARG BUILD_DATE
 ARG COMMIT

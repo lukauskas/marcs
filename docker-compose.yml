@@ -10,6 +10,8 @@ services:
     volumes:
       - ./ssl/marcs.crt:/etc/nginx/ssl/marcs.crt
       - ./ssl/marcs.key:/etc/nginx/ssl/marcs.key
+      - ./ssl/marcs-alternative.crt:/etc/nginx/ssl/marcs-alternative.crt
+      - ./ssl/marcs-alternative.key:/etc/nginx/ssl/marcs-alternative.key
       - ./htpasswd/.htpasswd:/etc/nginx/.htpasswd
       - ./cache/proxy:/cache/proxy
   api:

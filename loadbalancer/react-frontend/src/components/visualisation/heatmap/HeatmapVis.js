@@ -10,6 +10,7 @@ import HelpQuestionMark from 'components/common/HelpQuestionMark';
 import ErrorToast from 'components/error/ErrorToast';
 import ReactEcharts from 'echarts-for-react';
 import { annotationSeries, annotationVisualMap, annotationXAxis } from './styling/annotation';
+import "regenerator-runtime/runtime";
 
 import {
     legendColormap,
@@ -23,8 +24,10 @@ import { tooltipFormatter } from './styling/tooltip';
 
 import { GRID_BORDER_COLOR } from './styling/grid';
 
+import confirmLicenseAndSaveAsImageTool from 'components/visualisation/confirmLicenseAndSaveAsImage';
+import { withMatomo } from 'components/matomo/WithMatomo';
 
-export default class HeatmapVis extends PureComponent {
+class HeatmapVis extends PureComponent {
     constructor(props) {
         super(props);
         this.echartsInstance = null;
@@ -40,6 +43,8 @@ export default class HeatmapVis extends PureComponent {
 
         this.echartsInstance = instance;
     };
+
+    getEchartsInstance = () => this.echartsInstance;
 
     paddingTop = () => 50;
 
@@ -85,6 +90,7 @@ export default class HeatmapVis extends PureComponent {
     totalWidth = () => (this.paddingLeft() + this.mainWidth() + this.spacerHorizontal()
         + Math.max(this.sideWidth(), this.annotationsWidth()) + this.paddingRight());
 
+    
     getOption = () => {
         const {
             selectedPullDowns: pullDownOrder,
@@ -93,6 +99,7 @@ export default class HeatmapVis extends PureComponent {
             dataAnnotation,
             annotationXLabel,
             annotationOrder,
+            trackEvent,
         } = this.props;
 
         const pdDataset = [
@@ -119,11 +126,11 @@ export default class HeatmapVis extends PureComponent {
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {
-                        name: 'marcs-heatmap',
-                        title: 'PNG',
-                        pixelRatio: 4,
-                    },
+                    mySaveAsImage: confirmLicenseAndSaveAsImageTool(
+                        this.getEchartsInstance, 
+                        trackEvent,
+                        "marcs-heatmap"
+                    ),
                 },
                 left: 'left',
                 top: 0,
@@ -298,3 +305,5 @@ HeatmapVis.propTypes = {
     annotationXLabel: PropType.string.isRequired,
     annotationOrder: PropType.arrayOf(PropType.string).isRequired,
 };
+
+export default withMatomo(HeatmapVis);

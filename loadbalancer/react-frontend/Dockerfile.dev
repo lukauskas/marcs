@@ -1,22 +1,22 @@
 ## This is the dockerfile for "hot" loading of webpack
-
-FROM snapanalysis as snap
-COPY ./precompile /extra
-RUN python /extra/gene_select.py
-RUN python /extra/predictors.py
-RUN python /extra/collect_downloads.py
-
-FROM node:latest
+FROM node:16-bullseye
 
 EXPOSE 8080
 WORKDIR /bindmount
 
 COPY package-lock.json package.json ./
-RUN npm install --no-progress --ignore-optional
+RUN npm install --no-progress --ignore-optional --legacy-peer-deps
 
 COPY webpack.config.js ./
 COPY data ./data
-COPY --from=snap /precompiled/* ./data/
+
+ARG MARCS_DATA_FILE
+RUN mkdir /tmp/marcsimport
+COPY $MARCS_DATA_FILE /tmp/marcsimport/marcs-data-file.tar.gz
+RUN tar -xvf /tmp/marcsimport/marcs-data-file.tar.gz -C /tmp/marcsimport \
+    && mv /tmp/marcsimport/output/web/precompiled/* ./data/ \
+    && rm -rf /tmp/marcsimport
+
 COPY config ./config
 
 # Matomo tracking:

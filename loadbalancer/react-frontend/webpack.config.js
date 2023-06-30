@@ -19,7 +19,7 @@ module.exports = (env, argv) => ({
         compress: true,
         historyApiFallback: true,
     },
-    devtool: argv.mode === 'production' ? false : 'eval-source-maps',
+    devtool: argv.mode === 'production' ? false : 'eval-source-map',
     plugins: [
         new LodashModuleReplacementPlugin,
         new HtmlWebPackPlugin({

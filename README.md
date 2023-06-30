@@ -26,11 +26,17 @@ Docker daemon has to be installed on the system before starting.
 * MAC OS X: [instructions here](https://docs.docker.com/docker-for-mac/install/)
 * linux: use your distro's package manager.
 
-#### Snapanalysis image
+#### Docker-compose
 
-The build steps for interactive interface depend on the pre-built data analysis image.
+See https://docs.docker.com/compose/, install it via your favourite package manager.
+
+#### MARCS data analysis results 
+
+The build steps for interactive interface depend on the pre-built results from the data analysis image.
 Please follow instructions on https://github.com/lukauskas/publications-lukauskas-2021-marcs
-to build the `snapanalysis` image.
+to build the `snapanalysis` image and make sure to have `marcs.for-web.tar.gz`  file somewhere.
+
+The build scripts will take this file as the first parameter.
 
 ####  SSL certificate
 
@@ -46,6 +52,20 @@ The app integrates tracking by [matomo](https://matomo.org/) out of the box.
 The tracking is disabled by default, in order to enable it,
 copy [`matomo.sourceme.template`](matomo.sourceme.template) to `matomo.sourceme`,
 and update the variables specified in this template accordingly.
+
+### Overview of the key configuration files
+
+Docker services configuration files:
+
+1. `docker-compose.yml` - the key docker-compose file, describing the main services and how they operate
+2. `docker-compose.override.yml` - the additional  configuration details on each of the services, used for development builds (with realtime change reloading for JS)
+3. `docker-compose.prod.yml` - additional configuration details on each of the services, in prod config (compiled javascript, no realtime change reloading)
+4. `docker-compose.prod.onserver.yml` - configuration details for each of the services that are specific for the live version of the code which lives on server (e.g. domain name)
+
+Other configuration files
+
+1. `matomo.sourceme` - configuration for matomo tracking services, see [`matomo.sourceme.template`](matomo.sourceme.template)
+
 
 ### Development build
 
@@ -64,7 +84,7 @@ The default settings of `docker-compose` files point to development build.
 To start the development server use the helper script:
 
 ```
-./build_run_dev.sh
+./build_run_dev.sh [location of marcs.for-web.tar.gz]
 ```
 
 Proceed to
@@ -80,8 +100,8 @@ if you are using a self-signed one.
 #### Building API (development mode)
 
 API can be built separately from the rest of interface by the `buildnrun.sh` script in `api` directory.
-This is useful for API development purposes.
-Having said that, development build will also build the API.
+This is useful for API development purposes. The build script again takes `[location of marcs.for-web.tar.gz]` as a paramer.
+Having said that, development build will also build the API so it can be developed this way too.
 
 ### Production build
 
@@ -96,16 +116,16 @@ The production pipeline is set up as follows, and can be run with one click in `
 
 #### Prebuild
 
-The production images can be prebuilt from `docker-comkpose.yml` and `docker-compose.prod.yml` files:
+The production images can be prebuilt from `docker-compose.yml` and `docker-compose.prod.yml` files:
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --force-rm --parallel
 ```
 
-Convenience script `prebuild_prod.sh` does the job:
+Convenience script `prebuild_prod.sh` does the job (and should be used as it sets the argumetns correctly):
 
 ```
-./prebuild_prod.sh
+./prebuild_prod.sh [location of marcs.for-web.tar.gz]
 ```
 
 The prebuilt images can be tested via

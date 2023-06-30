@@ -12,6 +12,7 @@ export default function Citation(props) {
                     Lukauskas, S.,
                     Nguyen, N. V.,
                     Tvardovskiy, A.,
+                    Stadler, M.,
                     Faull, P.,
                     Flynn, H.,
                     Lindeboom, R. G. H.,
@@ -28,7 +29,7 @@ export default function Citation(props) {
                     {' '}
                     <em>Decoding Chromatin States by Proteomic Profiling of Modification-Dependent Nucleosome Readers.</em>
                     {' '}
-                    Unpublished (2021).
+                    Submitted for publication (2022).
                 </p>
             </blockquote>
         </>

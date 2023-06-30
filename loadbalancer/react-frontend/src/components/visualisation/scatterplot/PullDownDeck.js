@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 
 import PropTypes from 'prop-types';
 
-import echarts from 'echarts';
+import * as echarts from 'echarts/core';
+
 import _ from 'lodash';
 
 // eslint-disable-next-line import/no-unresolved
@@ -35,6 +36,8 @@ function mapStateToProps(state) {
 }
 
 const CHART_GROUP = 'scatterplots';
+// 65 Colours should be enough (they will start repeating afterwards)
+const COLOR_PALETTE = palette(['mpn65'], 65);
 
 class PullDownDeck extends Component {
     constructor(props) {
@@ -46,7 +49,87 @@ class PullDownDeck extends Component {
     }
 
     componentDidMount() {
+
+        // Connect echarts first
         echarts.connect(CHART_GROUP);
+
+        // Now check if we need to update state
+        const { selectedProteins, selectedPullDowns } = this.props;
+
+        const stateUpdate = {}
+
+        // If mounted with proteins already, assign their colour
+        if (selectedProteins.length > 0) {
+            console.log("Mounted with proteins, assigning colours");
+            stateUpdate.colors = this.assignColours(selectedProteins, [])
+        }
+
+        if (selectedPullDowns.length > 0) {
+            console.log("Mounted with PDs, assigning maxes");
+            const newAbsMaxes = this.updateAbsMaxes(selectedPullDowns, []);
+            if (newAbsMaxes !== null) {
+                stateUpdate.absMaxes = newAbsMaxes;
+            }
+        }
+        
+        // Update state if needed
+        if (Object.keys(stateUpdate).length > 0) this.setState(stateUpdate);
+        
+    }
+
+    assignColours(selectedProteins, prevSelectedProteins) {
+        const addition = selectedProteins.filter(x => !prevSelectedProteins.includes(x));
+        const deletion = prevSelectedProteins.filter(x => !selectedProteins.includes(x));
+
+
+        const { colors } = this.state;
+        const newColors = {};
+
+        Object.keys(colors).filter(x => !deletion.includes(x)).forEach((x) => {
+            newColors[x] = colors[x];
+        });
+
+        let colorPalette = COLOR_PALETTE;
+        let newColorIndex;
+
+        if (selectedProteins.length < COLOR_PALETTE.length) {
+            // If we have selected fewer proteins than we have colours, filter out the colours that we already using
+            const usedColors = new Set(Object.values(colors).map(x => x.slice(1)))
+            colorPalette = colorPalette.filter(x => !usedColors.has(x))
+            // Take first colour
+            newColorIndex = 0;
+        } else {
+            // If we have more proteins than we have colours
+            // just keep cycling through the colours
+            newColorIndex = prevSelectedProteins.length - deletion.length;
+        }
+        
+        // Assign colors 
+        for (let i = 0; i < addition.length; i += 1) {
+            const item = addition[i];
+
+            // Assign a color from COLOR_PALETTE
+            const colorIndex = (newColorIndex + i) % colorPalette.length;
+
+            const color = colorPalette[colorIndex];
+            // eslint-disable-next-line no-param-reassign
+            newColors[item] = `#${color}`;
+        }
+
+        return newColors
+    }
+
+    updateAbsMaxes(selectedPullDowns, prevSelectedPullDowns) {
+        const pdDeletions = prevSelectedPullDowns.filter(x => selectedPullDowns.includes(x));
+        const { absMaxes } = this.state;
+
+        if (pdDeletions.length > 0) {
+            const newAbsMaxes = Object.fromEntries(
+                Object.entries(absMaxes).filter(([k, v]) => !pdDeletions.includes(k)),
+            );
+            return newAbsMaxes
+        }
+        return null
     }
 
     componentDidUpdate(prevProps) {
@@ -55,48 +138,23 @@ class PullDownDeck extends Component {
             selectedPullDowns: prevSelectedPullDowns,
         } = prevProps;
         const { selectedProteins, selectedPullDowns } = this.props;
+        
+        const stateUpdate = {}
 
         if (!_.isEqual(selectedProteins, prevSelectedProteins)) {
-            const addition = selectedProteins.filter(x => !prevSelectedProteins.includes(x));
-            const deletion = prevSelectedProteins.filter(x => !selectedProteins.includes(x));
-
-            const newColorIndex = selectedProteins.length - deletion.length;
-            const newSize = newColorIndex + addition.length;
-
-            const colorPalette = palette(['cb-Set1', 'mpn65', 'tol-rainbow'], newSize);
-
-            const { colors } = this.state;
-            const newColors = {};
-
-            Object.keys(colors).filter(x => !deletion.includes(x)).forEach((x) => {
-                newColors[x] = colors[x];
-            });
-
-            for (let i = 0; i < addition.length; i += 1) {
-                const item = addition[i];
-                const color = colorPalette[newColorIndex + i];
-                // eslint-disable-next-line no-param-reassign
-                newColors[item] = `#${color}`;
-            }
-
-            this.setState({
-                colors: newColors,
-            });
+            stateUpdate.colors = this.assignColours(selectedProteins, prevSelectedProteins);
         }
 
         if (!_.isEqual(selectedPullDowns, prevSelectedPullDowns)) {
-            const pdDeletions = prevSelectedPullDowns.filter(x => selectedPullDowns.includes(x));
-            const { absMaxes } = this.state;
 
-            if (pdDeletions.length > 0) {
-                const newAbsMaxes = Object.fromEntries(
-                    Object.entries(absMaxes).filter(([k, v]) => !pdDeletions.includes(k)),
-                );
-                this.setState({
-                    absMaxes: newAbsMaxes,
-                });
+            const newAbsMaxes = this.updateAbsMaxes(selectedPullDowns, prevSelectedPullDowns);
+            if (newAbsMaxes !== null) {
+                stateUpdate.absMaxes = newAbsMaxes;
             }
         }
+
+        // Update state if needed
+        if (Object.keys(stateUpdate).length > 0) this.setState(stateUpdate);
     };
 
     updateAbsMax = (pd, absMax) => {

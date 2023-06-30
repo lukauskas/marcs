@@ -9,6 +9,7 @@ import { queryMiddleware, redirectMiddleware } from 'components/stores/middlewar
 import heatmapControlReducer from 'components/stores/reducers/heatmapControl';
 import scatterplotControlReducer from 'components/stores/reducers/scatterplotControl';
 import networkReducer from './reducers/networks';
+import licenseReducer from './reducers/licenseReducer';
 
 function historyReducer(history) {
     return combineReducers({
@@ -18,15 +19,19 @@ function historyReducer(history) {
         heatmapControl: heatmapControlReducer,
         scatterplotControl: scatterplotControlReducer,
         network: networkReducer,
+        license: licenseReducer,
     });
 }
 
 export const history = createBrowserHistory();
 
 
-const composeEnhancers = compose;
-// This is for dev only:
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let composeEnhancers = compose;
+
+if (process.env.NODE_ENV !== 'production') {
+    console.log("Debug mode detected, enabling REDUX devtools");
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
 
 const store = createStore(historyReducer(history), composeEnhancers(
     applyMiddleware(

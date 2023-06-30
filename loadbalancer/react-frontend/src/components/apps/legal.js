@@ -100,7 +100,7 @@ export default class LegalNotice extends Component {
                     </h2>
 
                     <address>
-                        Saulius Lukauskas, Till Bartke<br />
+                        Till Bartke<br />
                         Helmholtz Zentrum München<br />
                         Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH)<br />
                         Institute of Functional Epigenetics (IFE)<br />

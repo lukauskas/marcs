@@ -10,6 +10,7 @@ services:
         - COMMIT
     environment:
       - NGINX_HOST=marcs.local
+      - NGINX_HOST_ALTERNATIVE=marcs.lol
   api:
     image: snap-web-api-prod
     build:

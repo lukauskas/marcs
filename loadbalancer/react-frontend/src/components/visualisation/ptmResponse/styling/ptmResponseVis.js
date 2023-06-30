@@ -15,6 +15,7 @@ function renderConfidenceInterval(params, api) {
     const start = api.coord([middle-halfWidth, categoryIndex]);
     const end = api.coord([middle+halfWidth, categoryIndex]);
 
+    // TODO: these are deprecated but no solution on how to replace them..
     const style = api.style();
     const emphasisStyle = api.styleEmphasis();
     const seriesName = params.seriesName;
@@ -117,15 +118,15 @@ export function ptmResponseErrorbars(proteinRow, xAxisIndex = 0, yAxisIndex = 0)
         renderItem: renderConfidenceInterval,
         // symbol: 'circle',
         // symbolSize: 8,
-        itemStyle: {
-            normal: {
-                opacity: 0.0,
-            },
-            emphasis: {
+        emphasis: {
+            itemStyle: {
                 color: HIGHLIGHT_COLOR,
                 opacity: 1.0,
                 borderWidth: 3,
             },
+        },
+        itemStyle: {
+            opacity: 0.0,
         },
         z: 3,
         silent: true,
@@ -150,16 +151,16 @@ export function ptmResponseProteinSeries(proteinRow, xAxisIndex = 0, yAxisIndex 
         yAxisIndex,
         symbol: 'circle',
         symbolSize: 8,
-        itemStyle: {
-            normal: {
-                color: PROTEIN_COLOR,
-                borderColor: '#000000',
-                borderWidth: 1,
-                opacity: 1.0,
-            },
-            emphasis: {
+        emphasis: {
+            itemStyle: {
                 color: HIGHLIGHT_COLOR,
-            },
+            }
+        },
+        itemStyle: {
+            color: PROTEIN_COLOR,
+            borderColor: '#000000',
+            borderWidth: 1,
+            opacity: 1.0,
         },
         tooltip: {
             show: true,
