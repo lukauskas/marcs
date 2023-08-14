@@ -61,7 +61,7 @@ export default class LegalNotice extends Component {
                     </h2>
 
                     <p>
-                        Board of Directors: Prof. Dr. med. Dr. h.c. Matthias H. Tschöp, Kerstin Günther
+                        Board of Directors: Prof. Dr. med. Dr. h.c. Matthias H. Tschöp
                     </p>
 
                     <h2>
@@ -71,8 +71,8 @@ export default class LegalNotice extends Component {
 
                     <address>
                         Phone: +49 89 3187-0<br/>
-                        Internet: <a href="https://www.helmholtz-muenchen.de">www.helmholtz-muenchen.de</a><br/>
-                        email: <a href="mailto:info@helmholtz-muenchen.de">info@helmholtz-muenchen.de</a><br/>
+                        Internet: <a href="https://www.helmholtz-munich.de">www.helmholtz-munich.de</a><br/>
+                        email: <a href="mailto:info@helmholtz-munich.de">info@helmholtz-munich.de</a><br/>
                     </address>
 
                      <h2>
@@ -96,7 +96,7 @@ export default class LegalNotice extends Component {
 
                     <h2>
                         <a name="responsible-for-content"/>
-                        Responsible for the content according to Section 55 Abs. 2 RStV
+                        Responsible for the content according to Section 18 MStV
                     </h2>
 
                     <address>

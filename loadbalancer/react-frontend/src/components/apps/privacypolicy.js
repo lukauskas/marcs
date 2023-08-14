@@ -52,8 +52,8 @@ export default class PrivacyPolicy extends Component {
                         D-85764 Neuherberg<br />
                         Germany<br />
                         Tel.: + 49 89 3187 - 0<br />
-                        email: <a href="mailto:info@helmholtz-muenchen.de">info@helmholtz-muenchen.de</a><br />
-                        Website: <a href="http://www.helmholtz-muenchen.de">http://www.helmholtz-muenchen.de</a><br />
+                        email: <a href="mailto:info@helmholtz-munich.de">info@helmholtz-munich.de</a><br />
+                        Website: <a href="http://www.helmholtz-munich.de">http://www.helmholtz-munich.de</a><br />
                     </address>
 
                     {/*Paragraph 2*/}
@@ -64,11 +64,11 @@ export default class PrivacyPolicy extends Component {
 
                     <address>
                     Data Protection Officer of the Helmholtz Zentrums München<br />
-                    Werner Bergheim<br />
+                    Björn Kronfeld<br />
                     Ingolstädter Landstr. 1<br />
                     D-85764 Neuherberg<br />
                     Germany<br />
-                    email: <a href="mailto:datenschutz@helmholtz-muenchen.de">datenschutz@helmholtz-muenchen.de</a><br/>
+                    email: <a href="mailto:datenschutz@helmholtz-munich.de">datenschutz@helmholtz-munich.de</a><br/>
                     </address>
 
                     {/*Paragraph 3*/}
@@ -188,11 +188,11 @@ export default class PrivacyPolicy extends Component {
                     </p>
                     <h3>2. Legal basis for processing personal data</h3>
                     <p>
-                        The legal basis for processing users' personal data is Art. 6 Para. 1 lit. f GDPR.
+                        The legal basis for processing users' personal data is Art. 6(1)(f) GDPR.
                     </p>
                     <h3>3. Purpose of data processing</h3>
                     <p>
-                        The processing of the personal data of the users enables us to analyze the surfing behavior of our users. By evaluating the data obtained, we are able to compile information about the use of the individual components of our website. This helps us to continuously improve our website and its user-friendliness. For these purposes, our legitimate interest lies in the processing of the data according to Art. 6 Para. 1 lit. f GDPR. By anonymizing the IP address, the interests of users in protecting their personal data are adequately taken into account.
+                        The processing of the personal data of the users enables us to analyze the surfing behavior of our users. By evaluating the data obtained, we are able to compile information about the use of the individual components of our website. This helps us to continuously improve our website and its user-friendliness. For these purposes, our legitimate interest lies in the processing of the data according to Art. 6(1)(f) GDPR. By anonymizing the IP address, the interests of users in protecting their personal data are adequately taken into account.
                     </p>
                     <h3>4. Duration of storage</h3>
                     <p>
@@ -214,7 +214,10 @@ export default class PrivacyPolicy extends Component {
                     </p>
 
                     {/*Paragraph 7*/}
-                    <h2><a name="section-7" />VII. Transfer of Personal Data to Third Parties</h2>
+                    <h2><a name="section-7" />VII. Transfer of Personal Data to Processors and Third Parties</h2>
+                    <p>
+                        Our server is hosted at de.NBI Cloud (https://www.denbi.de/cloud). We have concluded a Data Processing Addendum with the cloud provider, in accordance with Art. 28(3) GDPR.
+                    </p>
                     <p>
                         We will only transfer your personal data to third parties if you have given your express consent in accordance with Art. 6(1) (a) GDPR, if this is necessary in accordance with Art. 6(1) (b) GDPR for the performance of a contract with you or in the event that there is a legal obligation to do so in accordance with Art. 6(1) (c) GDPR.
                     </p>
@@ -230,7 +233,7 @@ export default class PrivacyPolicy extends Component {
                     </p>
                     <h3>2. Legal basis for data processing</h3>
                     <p>
-                        The legal basis for the processing of the data that is transmitted in the course of sending an email is Art. 6 Para. 1 lit. f GDPR. If the aim of the email contact is to conclude a contract, the additional legal basis for the processing is Art. 6 Para. 1 lit. b GDPR.
+                        The legal basis for the processing of the data that is transmitted in the course of sending an email is Art. 6(1)(f) GDPR. If the aim of the email contact is to conclude a contract, the additional legal basis for the processing is Art. 6(1)(b) GDPR.
                     </p>
                     <h3>3. Purpose of data processing</h3>
                     <p>
@@ -302,7 +305,7 @@ export default class PrivacyPolicy extends Component {
                     </p>
                     <ul>
                         <li>The personal data concerning you are no longer necessary in relation to the purposes for which they were collected or otherwise processed.</li>
-                        <li>You withdraw your consent on which the processing is based according to Article 6(1) (a), or Article 9(2) (a) GDPR, and where there is no other legal ground for the processing.</li>
+                        <li>You withdraw your consent on which the processing is based according to Article 6(1)(a), or Article 9(2)(a) GDPR, and where there is no other legal ground for the processing.</li>
                         <li>You object to the processing pursuant to Article 21(1) GDPR and there are no overriding legitimate grounds for the processing, or you object to the processing pursuant to Article 21(2) GDPR. </li>
                         <li>The personal data concerning you has been unlawfully processed. </li>
                         <li>The personal data concerning you have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject.</li>
@@ -310,7 +313,7 @@ export default class PrivacyPolicy extends Component {
                     </ul>
                     <h4>4.2 Information to third parties</h4>
                     <p>
-                        Where the controller has made the personal data concerning you public and is obliged pursuant to Article 17 (1) GDPR to erase the personal data, the controller, taking account of available technology and the cost of implementation, will take reasonable steps, including technical measures, to inform controllers that are processing the personal data that you, as the data subject, have requested the erasure by such controllers of any links to these personal data or of copies or replications of these personal data.
+                        Where the controller has made the personal data concerning you public and is obliged pursuant to Article 17(1) GDPR to erase the personal data, the controller, taking account of available technology and the cost of implementation, will take reasonable steps, including technical measures, to inform controllers that are processing the personal data that you, as the data subject, have requested the erasure by such controllers of any links to these personal data or of copies or replications of these personal data.
                     </p>
                     <h4>4.3 Exceptions</h4>
                     <p>
@@ -319,7 +322,7 @@ export default class PrivacyPolicy extends Component {
                     <ul>
                         <li>For exercising the right of freedom of expression and information;</li>
                         <li>for compliance with a legal obligation which requires processing by Union or Member State law to which the controller is subject or for the performance of a task carried out in the public interest or in the exercise of official authority vested in the controller;</li>
-                        <li>for reasons of public interest in the area of public health in accordance with Article 9(2) (h) and (i) as well as Article 9(3) GDPR; </li>
+                        <li>for reasons of public interest in the area of public health in accordance with Article 9(2)(h) and (i) as well as Article 9(3) GDPR; </li>
                         <li>for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes in accordance with Article 89(1) GDPR in so far as the right referred to in section a) is likely to render impossible or seriously impair the achievement of the objectives of that processing, or</li>
                         <li>for the establishment, exercise or defence of legal claims.</li>
                     </ul>
@@ -337,7 +340,7 @@ export default class PrivacyPolicy extends Component {
                         You have the right to receive the personal data concerning you, which you have provided to the controller, in a structured, commonly used and machine-readable format. You furthermore have the right to transmit the data to another controller without hindrance from the controller to which the personal data have been provided, as far as
                     </p>
                     <ul>
-                        <li>the processing is based on consent pursuant to Article 6(1) (a) GDPR or Article 9(2) (a) or on a contract pursuant to Article 6(1) (b) GDPR and</li>
+                        <li>the processing is based on consent pursuant to Article 6(1)(a) GDPR or Article 9(2)(a) or on a contract pursuant to Article 6(1) (b) GDPR and</li>
                         <li>the processing is carried out by automated means.</li>
                     </ul>
                     <p>
@@ -349,7 +352,7 @@ export default class PrivacyPolicy extends Component {
 
                     <h3>7. Right to object</h3>
                     <p>
-                        You have the right to object to the processing of your personal data, at any time, based on grounds relating to your particular situation or Article 6(1) (e) or (f) GDPR, including profiling based on those provisions.
+                        You have the right to object to the processing of your personal data, at any time, based on grounds relating to your particular situation or Article 6(1)(e) or (f) GDPR, including profiling based on those provisions.
                     </p>
                     <p>
                         The controller will no longer process the personal data concerning you unless the controller demonstrates compelling legitimate grounds for the processing which override your interests, rights and freedoms or if the processing serves the establishment, exercise or defence of legal claims.
@@ -379,7 +382,7 @@ export default class PrivacyPolicy extends Component {
                         <li>(3) takes place with your explicit consent.</li>
                     </ul>
                     <p>
-                        However, these decisions are not permitted to be based on special categories of personal data referred to in Article 9(1) GDPR unless Article 9(2) (a) and (g) GDPR applies and suitable measures to safeguard your rights and freedoms and legitimate interests are in place.
+                        However, these decisions are not permitted to be based on special categories of personal data referred to in Article 9(1) GDPR unless Article 9(2)(a) and (g) GDPR applies and suitable measures to safeguard your rights and freedoms and legitimate interests are in place.
                     </p>
                     <p>
                         In the cases referred to in points (1) and (3), the data controller implements suitable measures to safeguard your rights and freedoms and legitimate interests, at least the right to obtain human intervention on the part of the controller, to express your own point of view and to contest the decision.
@@ -401,7 +404,7 @@ export default class PrivacyPolicy extends Component {
                         53117 Bonn<br/>
                         Germany<br/>
                         Tel.: +49 228 997799-0<br/>
-                        email: <a href="mailto:poststelle@bfdi.bund.de">poststelle@bfdi.bund.de</a>.<br/>
+                        email: <a href="mailto:poststelle@bfdi.bund.de">poststelle@bfdi.bund.de</a><br/>
                     </address>
 
                 </Container>

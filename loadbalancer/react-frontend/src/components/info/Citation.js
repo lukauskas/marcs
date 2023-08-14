@@ -10,26 +10,29 @@ export default function Citation(props) {
                 <p>
                     {intro}
                     Lukauskas, S.,
-                    Nguyen, N. V.,
                     Tvardovskiy, A.,
+                    Nguyen, N. V.,
                     Stadler, M.,
                     Faull, P.,
+                    Ravnsborg, T.,
+                    Aygenli, B. Ö.,
+                    Dornauer, S.,
                     Flynn, H.,
                     Lindeboom, R. G. H.,
                     Barth, T. K.,
-                    Ravnsborg, T.,
+                    Brockers, K.,
                     Hauck, S. M.,
-                    Jensen, O. N.,
                     Vermeulen, M.,
                     Snijders, A. P.,
                     Müller, C. L.,
-                    Schneider, R.,
                     DiMaggio, P. A.,
+                    Jensen, O. N.,
+                    Schneider, R.,
                     and Bartke, T.
                     {' '}
                     <em>Decoding Chromatin States by Proteomic Profiling of Modification-Dependent Nucleosome Readers.</em>
                     {' '}
-                    Submitted for publication (2022).
+                    Submitted for publication (2023).
                 </p>
             </blockquote>
         </>
