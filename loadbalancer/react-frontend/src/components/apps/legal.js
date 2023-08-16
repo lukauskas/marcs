@@ -25,7 +25,7 @@ export default class LegalNotice extends Component {
                             <li className="nav-item"><a href="#contact">Contact</a></li>
                             <li className="nav-item"><a href="#register-entry">Register entry</a></li>
                             <li className="nav-item"><a href="#vat-id">VAT ID</a></li>
-                            <li className="nav-item"><a href="#responsible-for-content"> Responsible for the content according to Section 55 Abs. 2 RStV</a></li>
+                            <li className="nav-item"><a href="#responsible-for-content"> Responsible for the content according to Section 18 MStV</a></li>
                             <li className="nav-item"><a href="#disclaimer">Disclaimer of liability</a></li>
                             <li className="nav-item"><a href="#copyright">Copyright</a></li>
                         </ul>

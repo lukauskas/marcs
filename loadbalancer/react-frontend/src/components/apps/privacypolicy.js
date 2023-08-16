@@ -219,7 +219,7 @@ export default class PrivacyPolicy extends Component {
                         Our server is hosted at de.NBI Cloud (https://www.denbi.de/cloud). We have concluded a Data Processing Addendum with the cloud provider, in accordance with Art. 28(3) GDPR.
                     </p>
                     <p>
-                        We will only transfer your personal data to third parties if you have given your express consent in accordance with Art. 6(1) (a) GDPR, if this is necessary in accordance with Art. 6(1) (b) GDPR for the performance of a contract with you or in the event that there is a legal obligation to do so in accordance with Art. 6(1) (c) GDPR.
+                        We will only transfer your personal data to third parties if you have given your express consent in accordance with Art. 6(1)(a) GDPR, if this is necessary in accordance with Art. 6(1)(b) GDPR for the performance of a contract with you or in the event that there is a legal obligation to do so in accordance with Art. 6(1)(c) GDPR.
                     </p>
 
                     {/*Paragraph 8*/}
@@ -254,6 +254,7 @@ export default class PrivacyPolicy extends Component {
                     {/*Paragraph 9*/}
                     <h2><a name="section-9" />IX. Rights of the data subject</h2>
                     If your personal data is processed, you are the subject in the sense of the GDPR and you have the following rights with respect to the controller:
+                    <br />
                     <h3>1. Right to information</h3>
                     <p>
                         You can request confirmation from the controller as to whether or not we have processed personal data that concern you.
@@ -340,7 +341,7 @@ export default class PrivacyPolicy extends Component {
                         You have the right to receive the personal data concerning you, which you have provided to the controller, in a structured, commonly used and machine-readable format. You furthermore have the right to transmit the data to another controller without hindrance from the controller to which the personal data have been provided, as far as
                     </p>
                     <ul>
-                        <li>the processing is based on consent pursuant to Article 6(1)(a) GDPR or Article 9(2)(a) or on a contract pursuant to Article 6(1) (b) GDPR and</li>
+                        <li>the processing is based on consent pursuant to Article 6(1)(a) GDPR or Article 9(2)(a) or on a contract pursuant to Article 6(1)(b) GDPR and</li>
                         <li>the processing is carried out by automated means.</li>
                     </ul>
                     <p>
