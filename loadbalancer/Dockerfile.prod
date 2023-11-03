@@ -63,8 +63,8 @@ RUN mkdir -p /cache/proxy \
     && chmod -R g+w /cache/proxy
 USER 101
 
-COPY --from=webpack /webpackbuild/build/. /usr/share/nginx/html/react
-COPY --from=webpack /extra/downloads/. /usr/share/nginx/html/downloads
+COPY --chown=root:root --from=webpack /webpackbuild/build/. /usr/share/nginx/html/react
+COPY --chown=root:root --from=webpack /extra/downloads/. /usr/share/nginx/html/downloads
 
 COPY ./static/ /usr/share/nginx/html/static
 

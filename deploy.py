@@ -14,7 +14,7 @@ build_images = Command("./prebuild_prod.sh")
 
 def create_images(marcs_for_web_archive, server_key, server_uri):
     print('Building prod images')
-    build_images(marcs_for_web_archive)
+    # build_images(marcs_for_web_archive)
 
     with open(os.path.join(here, 'docker-compose.prod.yml')) as f:
         compose = yaml.safe_load(f)
@@ -22,7 +22,7 @@ def create_images(marcs_for_web_archive, server_key, server_uri):
 
     images = [service['image'] for service in services.values()]
     print('Stopping server')
-    ssh('-i', server_key, server_uri, 'docker-compose -f docker-compose.yml -f docker-compose.prod.onserver.yml down')
+    ssh('-i', server_key, server_uri, 'docker compose -f docker-compose.yml -f docker-compose.prod.onserver.yml down')
 
     print('Cleaning up')
     try:
@@ -36,7 +36,7 @@ def create_images(marcs_for_web_archive, server_key, server_uri):
     ssh(docker('save', *images, _piped=True),
         '-C', '-i', server_key, server_uri, 'docker load')
     print('Starting the server again')
-    ssh('-i', server_key, server_uri, 'docker-compose -f docker-compose.yml -f docker-compose.prod.onserver.yml up -d')
+    ssh('-i', server_key, server_uri, 'docker compose -f docker-compose.yml -f docker-compose.prod.onserver.yml up -d')
     print('Done')
 
     print(f"Note that you might want to reset cache on {server_uri}. To do this, SSH to the server and `rm -rf cache/proxy/*`. You will need sudo access for that.")
