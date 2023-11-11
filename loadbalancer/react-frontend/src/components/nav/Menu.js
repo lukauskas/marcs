@@ -57,8 +57,8 @@ class Menu extends PureComponent {
                         <Nav className="justify-content-end" activeKey={activeKey}>
                             <NavDropdown title="About" id="about-dropdown">
                                  <NavDropdown.Item href="/about" title="About MARCS">MARCS</NavDropdown.Item>
-                                 <NavDropdown.Item href="https://www.helmholtz-muenchen.de/ife/index.html" title="About IFE">Institute of Functional Epigenetics</NavDropdown.Item>
-                                 <NavDropdown.Item href="https://www.helmholtz-muenchen.de/en/about-us/index.html" title="About HMGU">Helmholtz Zentrum München</NavDropdown.Item>
+                                 <NavDropdown.Item href="https://www.helmholtz-munich.de/en/ife" title="About IFE">Institute of Functional Epigenetics</NavDropdown.Item>
+                                 <NavDropdown.Item href="https://www.helmholtz-munich.de/en" title="About HMGU">Helmholtz Munich</NavDropdown.Item>
                                  <div className="dropdown-divider" />
                                  <NavDropdown.Item href="/about#license" title="License">License</NavDropdown.Item>
                                  <NavDropdown.Item href="/legal" title="Legal notice">Legal notice</NavDropdown.Item>

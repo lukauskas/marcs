@@ -23,6 +23,13 @@ export default class Footer extends Component {
                                     <img src="/static/ife-logo.png" style={{ height: 25 }} alt="IFE: Institute of Functional Epigenetics" />
                                 </a>
                             </span>
+                            <span className="ml-3">
+                                <a href="https://cloud.denbi.de/" title="deNBI: German Network For Bioinformatics Infrastructure">
+                                    <img src="/static/denbi-logo-color.svg" style={{ height: 25 }} alt="deNBI: German Network For Bioinformatics Infrastructure" />
+                                    &nbsp;
+                                    MARCS is hosted on the de.NBI Cloud
+                                </a>                            
+                            </span>
                         </div>
                     </span>
                     <span className="ml-auto navbar-text">
@@ -32,7 +39,7 @@ export default class Footer extends Component {
                                 HMGU
                             </a>
                             {' | '}
-                            <a href="https://www.helmholtz-munich.de/ife/" title="Institute of Functional Epigenetics">
+                            <a href="https://www.helmholtz-munich.de/en/ife" title="Institute of Functional Epigenetics">
                                 IFE
                             </a>
                             {' | '}
