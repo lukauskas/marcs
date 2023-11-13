@@ -90,9 +90,6 @@ http {
 
         # Any route that doesn't have a file extension (e.g. /devices)
         location / {
-            auth_basic "Restricted Access";
-            auth_basic_user_file /etc/nginx/.htpasswd;
-
             try_files $uri $uri/ /index.html;
         }
 

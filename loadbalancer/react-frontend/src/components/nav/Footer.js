@@ -14,12 +14,12 @@ export default class Footer extends Component {
                         {/*For medium+ screens, show logos*/}
                         <div className="d-none d-md-block">
                             <span>
-                                <a href="https://www.helmholtz-munich.de/" title="Helmholtz Munich">
+                                <a href="https://www.helmholtz-munich.de/en" title="Helmholtz Munich">
                                     <img src="/static/hmgu-logo.svg" style={{ height: 25 }} alt="Helmholtz Munich" />
                                 </a>
                             </span>
                             <span className="ml-3">
-                                <a href="https://www.helmholtz-munich.de/ife/" title="Institute of Functional Epigenetics">
+                                <a href="https://www.helmholtz-munich.de/en/ife" title="Institute of Functional Epigenetics">
                                     <img src="/static/ife-logo.png" style={{ height: 25 }} alt="IFE: Institute of Functional Epigenetics" />
                                 </a>
                             </span>
@@ -35,7 +35,7 @@ export default class Footer extends Component {
                     <span className="ml-auto navbar-text">
                         {/* For small screens show HMGU and IFE links as text */}
                         <span className="d-md-none d-sm-inline">
-                            <a href="https://www.helmholtz-munich.de" title="Helmholtz Munich">
+                            <a href="https://www.helmholtz-munich.de/en" title="Helmholtz Munich">
                                 HMGU
                             </a>
                             {' | '}

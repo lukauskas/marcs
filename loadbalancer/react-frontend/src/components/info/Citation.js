@@ -38,7 +38,7 @@ export default function Citation(props) {
                     Stadler, M.,
                     Faull, P.,
                     Ravnsborg, T.,
-                    Aygenli, B. Ö.,
+                    Özdemir Aygenli, B.,
                     Dornauer, S.,
                     Flynn, H.,
                     Lindeboom, R. G. H.,

@@ -46,7 +46,7 @@ export default class AboutPage extends Component {
                     <p>
                         For enquiries about commercial uses of the data please contact
                         {' '}
-                        <a href="https://www.helmholtz-munich.de/en/ife/staff">Till Bartke</a> (till.bartke at helmholtz-munich dot de’).
+                        <a href="https://www.helmholtz-munich.de/en/ife/staff">Till Bartke</a> (till.bartke at helmholtz-munich dot de).
                     </p>
                 </Container>
             </>
