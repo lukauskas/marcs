@@ -53,9 +53,9 @@ export default function Citation(props) {
                     Schneider, R.,
                     and Bartke, T.
                     {' '}
-                    <em>Decoding Chromatin States by Proteomic Profiling of Nucleosome Readers</em>
+                    <em>Decoding chromatin states by proteomic profiling of nucleosome readers</em>
                     {' '}
-                    Accepted (2023). 
+                    Nature (2024). <a href="https://doi.org/10.1038/s41586-024-07141-5">https://doi.org/10.1038/s41586-024-07141-5</a>
                     {' '}<strong>*</strong> equal contribution. 
                 </p>
             </blockquote>
