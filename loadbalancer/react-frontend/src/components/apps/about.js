@@ -10,6 +10,7 @@ import MatomoPageView from "../matomo/MatomoPageView";
 import LicenseBadge from "../info/LicenseBadge";
 import LicenseStatement from "../info/LicenseStatement";
 
+
 export default class AboutPage extends Component {
     render() {
 

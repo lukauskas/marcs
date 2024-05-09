@@ -55,7 +55,7 @@ export default function Citation(props) {
                     {' '}
                     <em>Decoding chromatin states by proteomic profiling of nucleosome readers.</em>
                     {' '}
-                    Nature (2024). <a href="https://doi.org/10.1038/s41586-024-07141-5">https://doi.org/10.1038/s41586-024-07141-5</a>
+                    Nature 627, 671–679 (2024). <a href="https://doi.org/10.1038/s41586-024-07141-5">https://doi.org/10.1038/s41586-024-07141-5</a>
                     {' '}<strong>*</strong> equal contribution. 
                 </p>
             </blockquote>

@@ -61,7 +61,7 @@ export default class LegalNotice extends Component {
                     </h2>
 
                     <p>
-                        Board of Directors: Prof. Dr. med. Dr. h.c. Matthias H. Tschöp
+                        Board of Directors: Prof. Dr. med. Dr. h.c. Matthias H. Tschöp, Dr. Michael Frieser
                     </p>
 
                     <h2>
