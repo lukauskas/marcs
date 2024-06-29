@@ -70,6 +70,10 @@ http {
           add_header Cache-Control "public";
         }
 
+        location ~ /\. {
+            deny all;
+        }
+
         location /_downloads/ {
             autoindex on;
             alias /usr/share/nginx/html/downloads/;

@@ -49,6 +49,10 @@ http {
         proxy_max_temp_file_size 2048m;
         proxy_temp_file_write_size 32k;
 
+        location ~ /\. {
+            deny all;
+        }
+
         location /_downloads/ {
             autoindex on;
             alias /usr/share/nginx/html/downloads/;
