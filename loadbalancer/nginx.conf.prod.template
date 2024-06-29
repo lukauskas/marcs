@@ -35,6 +35,9 @@ http {
         ssl_certificate     /etc/nginx/ssl/marcs-alternative.crt;
         ssl_certificate_key /etc/nginx/ssl/marcs-alternative.key;
 
+        # Use only secure SSL protocols
+        ssl_protocols TLSv1.2 TLSv1.3;
+
         return 301 https://${NGINX_HOST}$request_uri;
     }
 
